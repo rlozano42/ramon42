@@ -6,14 +6,13 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 09:54:11 by rlozano           #+#    #+#             */
-/*   Updated: 2019/10/06 09:59:53 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/10/09 16:31:18 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include <unistd.h>
+#include <unistd.h>
 
-void ft_putchar(char c)
+void	ft_putchar(char c)
 {
- c = 'h';
- write(1, &c, 1);
+	write(1, &c, 1);
 }

@@ -6,20 +6,20 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 10:12:03 by rlozano           #+#    #+#             */
-/*   Updated: 2019/10/06 10:15:06 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/10/09 16:35:02 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void ft_print_alphabet(void)
+void	ft_print_alphabet(void)
 {
-char n;
+	char n;
 
-n = 'a';
-while (n < 'z')
-{
-write(1,&n,1);
-	n++;
-}
+	n = 'a';
+	while (n <= 'z')
+	{
+		write(1, &n, 1);
+		n++;
+	}
 }

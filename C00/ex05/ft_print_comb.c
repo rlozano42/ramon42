@@ -6,13 +6,20 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 12:20:04 by rlozano           #+#    #+#             */
-/*   Updated: 2019/10/06 15:23:37 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/10/09 18:03:31 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_print(char a, char b, char c);
+void	ft_prin(char a, char b, char c)
+{
+	write(1, &a, 1);
+	write(1, &b, 1);
+	write(1, &c, 1);
+	if (a != '7')
+		write(1, ", ", 2);
+}
 
 void	ft_print_comb(void)
 {
@@ -25,7 +32,7 @@ void	ft_print_comb(void)
 	c = '2';
 	while (a <= '7')
 	{
-		ft_print(a, b, c);
+		ft_prin(a, b, c);
 		if (c == '9' && b != '8')
 		{
 			b++;
@@ -34,18 +41,10 @@ void	ft_print_comb(void)
 		else if (c == '9' && b == '8' && a <= '7')
 		{
 			a++;
-			c = b + 1;
 			b = a + 1;
+			c = b + 1;
 		}
 		else
 			c++;
 	}
-}
-
-void	ft_print(char a, char b, char c)
-{
-	write(1, &a, 1);
-	write(1, &b, 1);
-	write(1, &c, 1);
-	write(1, ", ", 2);
 }
