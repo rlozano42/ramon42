@@ -25,7 +25,7 @@ void	ft_print_comb(void)
 	c = '2';
 	while (a <= '7')
 	{
-		ft_print(a, b, c, d);
+		ft_print(a, b, c);
 		if (c == '9' && b != '8')
 		{
 			b++;
