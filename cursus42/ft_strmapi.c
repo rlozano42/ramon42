@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/24 16:02:27 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/25 19:27:09 by rlozano          ###   ########.fr       */
+/*   Created: 2019/11/26 11:09:23 by rlozano           #+#    #+#             */
+/*   Updated: 2019/11/26 12:19:31 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char		*ptr;
-	size_t		mal;
-	size_t		count;
-	size_t		start2;
+	char 	*aux;
+	size_t 	count;
+	size_t		len;
 
-	start2 = start;
 	count = 0;
-	mal = len - start;
-	if (len == 0)
-		return (0);
 	if (s == NULL)
 		return (0);
-	if (!(ptr = malloc((sizeof(char) * (len)) + 1)))
+	len = ft_strlen(s);
+	if (!(aux = malloc(sizeof(char) * (len + 1))))
 		return (0);
-	while (start < (len + start2))
-		ptr[count++] = s[start++];
-	ptr[count] = '\0';
-	return (ptr);
+	while (s[count])
+	{
+		aux[count] = f(count, s[count]);
+		count++;	
+	}
+	aux[count] = '\0';
+	return (aux);
 }

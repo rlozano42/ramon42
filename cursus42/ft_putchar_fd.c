@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/24 16:02:27 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/25 19:27:09 by rlozano          ###   ########.fr       */
+/*   Created: 2019/11/26 12:19:46 by rlozano           #+#    #+#             */
+/*   Updated: 2019/11/26 12:28:29 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_putchar_fd(char c, int fd)
 {
-	char		*ptr;
-	size_t		mal;
-	size_t		count;
-	size_t		start2;
-
-	start2 = start;
-	count = 0;
-	mal = len - start;
-	if (len == 0)
-		return (0);
-	if (s == NULL)
-		return (0);
-	if (!(ptr = malloc((sizeof(char) * (len)) + 1)))
-		return (0);
-	while (start < (len + start2))
-		ptr[count++] = s[start++];
-	ptr[count] = '\0';
-	return (ptr);
+	write(fd, &c, 1);
 }

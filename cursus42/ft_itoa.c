@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/24 16:02:27 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/25 19:27:09 by rlozano          ###   ########.fr       */
+/*   Created: 2019/11/26 18:35:50 by rlozano           #+#    #+#             */
+/*   Updated: 2019/11/26 19:37:15 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_itoa(int n)
 {
-	char		*ptr;
-	size_t		mal;
-	size_t		count;
-	size_t		start2;
-
-	start2 = start;
-	count = 0;
-	mal = len - start;
-	if (len == 0)
-		return (0);
-	if (s == NULL)
-		return (0);
-	if (!(ptr = malloc((sizeof(char) * (len)) + 1)))
-		return (0);
-	while (start < (len + start2))
-		ptr[count++] = s[start++];
-	ptr[count] = '\0';
-	return (ptr);
+	int *str;
+	
+	str = (int *)n;
+	while (str[i] == '\t' || str[i] == '\n' ||
+			str[i] == '\v' || str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+		str++;
+	while (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = sign * -1;
+		str++;
+	}
 }

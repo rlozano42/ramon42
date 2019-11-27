@@ -6,13 +6,13 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 10:45:36 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/19 19:29:12 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:35:06 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(char *s1, char *s2)
+static int		ft_strcmp(char *s1, char *s2)
 {
 	int l;
 	int vuelta;
