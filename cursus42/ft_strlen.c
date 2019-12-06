@@ -6,7 +6,7 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 12:12:24 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/18 13:10:45 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/12/06 12:33:11 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 size_t	ft_strlen(const char *str)
 {
-	size_t x;
+	size_t	x;
 
 	x = 0;
-	while (str[x])
+	if (str == NULL)
+		return (0);
+	while (*str != '\0')
 	{
 		x++;
+		str++;
 	}
 	return (x);
 }

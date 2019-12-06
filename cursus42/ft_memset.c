@@ -6,7 +6,7 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:15:02 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/23 15:49:29 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/12/06 12:38:54 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_memset(void *b, int c, size_t len)
 	char		*aux;
 	size_t		cont;
 
+	if (b == NULL)
+		return (NULL);
 	cont = 0;
 	aux = (char*)b;
 	while (cont < len)

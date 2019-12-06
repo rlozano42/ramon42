@@ -6,68 +6,66 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 13:03:25 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/29 20:41:39 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/12/04 16:51:45 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*char    *ft_malloc(char const *s, char c)
+static int		countword(char const *s, char c)
 {
-    char *aux;
-    int count;
+	int			world_count;
+	int			count;
 
-    count = 0;
-    while (s[count] != c)
-        count++;
-    if (!(aux = malloc(sizeof(char)* (count) + 1)))
-            return (0); 
-    return (aux);
-}
-
-char    *ft_letras(char const *s, char c)
-{
-    char *aux;
-    int n;
-
-    n = 0;
-    aux = ft_malloc(s,c);
-
-    while (s[n] != c)
-    {
-        aux[n] = s[n];
-        n++;
-    }
-    aux[n] = '\0';
-    return (aux);
-}*/
-int		countword(char const *s, char c)
-{
-//	int strl_count;
-	int count;
-
-	count = 0;	
-	s = ft_strtrim(s,(char *)c);
-//	strl_count = ft_strlen(s);
+	count = 0;
+	world_count = 0;
 	while (s[count])
 	{
-		if (s[count] != c)
-			count++;
+		while (s[count] && s[count] == c)
+			++count;
+		if (s[count] && s[count] != c)
+		{
+			while (s[count] && s[count] != c)
+				++count;
+			world_count++;
+		}
 	}
-	return ();
+	return (world_count);
 }
 
-
-char	*ft_split(char const *s, char c)
+static char		**fil(char **aux, char const *s, char c, int count)
 {
-    char *aux;
+	size_t		k;
+	int			i;
+	int			words_aux;
 
-    aux = ft_letras(s,c);
-    return (aux);
+	i = 0;
+	words_aux = 0;
+	while ((s[i] && words_aux < count))
+	{
+		k = 0;
+		while (s[i] && s[i] == c)
+			++i;
+		while (*(s + i + k) && *(s + i + k) != c)
+			++k;
+		if (k > 0)
+			*(aux + words_aux++) = ft_substr(s, i, k);
+		i = i + k;
+	}
+	return (aux);
 }
 
-int main()
+char			**ft_split(char const *s, char c)
 {
-    char *s = "HOla julian te quiero+ ";
-    printf("%s", ft_split(s, ' '));
+	char	**aux;
+	int		count;
+
+	if (!s)
+		return (0);
+	count = countword(s, c);
+	if (!(aux = (char **)malloc(sizeof(char*) * (count + 1))))
+		return (0);
+	aux = fil(aux, s, c, count);
+	aux[count] = NULL;
+	return (aux);
 }

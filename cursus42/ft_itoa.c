@@ -6,7 +6,7 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:35:50 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/28 13:30:12 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/11/30 15:07:10 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int			ft_size(long int nb)
 	digit_n = 1;
 	if (nb == 0)
 		return (1);
-	if (nb <= 10)
+	if (nb <= 0)
 	{
 		nb = nb * -1;
 		digit_n = digit_n + 1;

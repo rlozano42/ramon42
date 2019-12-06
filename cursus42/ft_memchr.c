@@ -6,7 +6,7 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 19:08:10 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/23 15:49:57 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/12/06 12:43:33 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void			*ft_memchr(const void *s, int c, size_t n)
 
 	count = 0;
 	cpy = (unsigned char *)s;
+	if (s == NULL)
+		return (NULL);
 	while (n--)
 	{
 		if (*cpy == (unsigned char)c)

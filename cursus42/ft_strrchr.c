@@ -6,7 +6,7 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:34:08 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/23 15:45:43 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/12/06 12:55:38 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strrchr(const char *s, int c)
 	const char		*temp;
 	char			aux;
 
+	if (s == NULL)
+		return (NULL);
 	aux = (char)c;
 	temp = s;
 	while (*temp)

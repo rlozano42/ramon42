@@ -6,21 +6,23 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 13:34:17 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/18 14:32:14 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/12/06 12:35:22 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	size_t			num;
+	int				num;
 	int				i;
 	int				sign;
 
 	sign = 1;
 	i = 0;
 	num = 0;
+	if (str == NULL)
+		return (0);
 	while (str[i] == '\t' || str[i] == '\n' ||
 			str[i] == '\v' || str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		str++;

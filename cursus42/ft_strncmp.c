@@ -6,7 +6,7 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 19:35:09 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/23 15:47:06 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/12/06 12:58:09 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t l;
 
 	l = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (0);
 	if (n == 0)
 		return (0);
 	while ((*s1 || *s2) && l < n)

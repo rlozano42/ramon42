@@ -6,18 +6,18 @@
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:47:30 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/26 12:52:57 by rlozano          ###   ########.fr       */
+/*   Updated: 2019/11/28 14:23:39 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void 			ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	int n;
 
 	n = 0;
-	if(s)
+	if (s)
 	{
 		while (*(s + n))
 		{
