@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 16:43:53 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/23 15:41:44 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:24:16 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:24:18 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char *aux;
+	char *src2;
+	char *dst2;
 
-	aux = dst;
-	if ((dst == NULL && src == NULL) || len <= 0)
+	src2 = (char*)src;
+	dst2 = dst;
+	if ((dst == '\0' && src == '\0') || len <= 0)
 		return (dst);
-	if (src < dst)
+	if (src2 < dst2)
 	{
-		src = src + (len - 1);
-		dst = dst + (len - 1);
+		src2 = src2 + (len - 1);
+		dst2 = dst2 + (len - 1);
 		while (len-- > 0)
-			*(unsigned char *)dst-- = *(unsigned char *)src--;
-		return (aux);
+			*dst2-- = *src2--;
+		return (dst);
 	}
 	while (len-- > 0)
-	{
-		*(unsigned char *)dst++ = *(unsigned char *)src++;
-	}
-	return (aux);
+		*dst2++ = *src2++;
+	return (dst);
 }

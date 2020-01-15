@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/20 12:10:50 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/06 12:54:03 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:20:50 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:20:52 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	if (s == NULL)
-		return (NULL);
-	while (*s)
+	char	*str;
+	int		cont;
+
+	cont = 0;
+	str = (char*)s;
+	while (str[cont])
 	{
-		if (s[0] == c)
-			return ((char *)s);
-		s++;
+		if (str[cont] == c)
+			return (&str[cont]);
+		cont++;
 	}
-	if (c == '\0')
-		return ((char *)s);
-	return (0);
+	if (str[cont] == '\0' && c == '\0')
+		return (&str[cont]);
+	return (NULL);
 }

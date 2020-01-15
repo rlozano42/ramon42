@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/23 16:21:44 by rlozano           #+#    #+#             */
-/*   Updated: 2019/11/24 13:11:51 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:25:10 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:25:28 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char		*cpy;
-	size_t		i;
+	void	*result;
+	size_t	cont;
 
-	if (!(cpy = malloc(nmemb * size)))
-		return (0);
-	i = 0;
-	while (i < (nmemb * size))
-	{
-		cpy[i] = 0;
-		i++;
-	}
-	return (cpy);
+	cont = 0;
+	result = malloc(size * nmemb);
+	if (result == NULL)
+		return (NULL);
+	ft_bzero(result, size * nmemb);
+	return (result);
 }

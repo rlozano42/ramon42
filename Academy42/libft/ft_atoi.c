@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 13:34:17 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/06 12:35:22 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:18:56 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:18:58 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,24 @@
 
 int	ft_atoi(const char *str)
 {
-	int				num;
-	int				i;
-	int				sign;
+	long int res;
+	long int neg;
 
-	sign = 1;
-	i = 0;
-	num = 0;
-	if (str == NULL)
-		return (0);
-	while (str[i] == '\t' || str[i] == '\n' ||
-			str[i] == '\v' || str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+	res = 0;
+	neg = 1;
+	while (*str && (*str == ' ' || *str == '\v' || *str == '\n' || *str == '\t'
+				|| *str == '\r' || *str == '\f'))
 		str++;
-	if (str[i] == '+' || str[i] == '-')
+	if (*str == '-' || *str == '+')
 	{
-		if (str[i] == '-')
-			sign = sign * -1;
+		if (*str == '-')
+			neg = -1;
 		str++;
 	}
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+	while (*str && *str >= '0' && *str <= '9')
 	{
-		num = num * 10 + (str[i] - '0');
-		i++;
+		res = res * 10 + (*str - 48);
+		str++;
 	}
-	return (sign * num);
+	return (res * neg);
 }

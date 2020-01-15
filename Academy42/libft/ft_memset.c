@@ -5,26 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/21 15:15:02 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/06 12:38:54 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:22:51 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:22:52 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *str, int c, size_t n)
 {
-	char		*aux;
-	size_t		cont;
+	char	*aux;
+	size_t	cont;
 
-	if (b == NULL)
-		return (NULL);
 	cont = 0;
-	aux = (char*)b;
-	while (cont < len)
+	aux = (char*)str;
+	while (cont < n)
 	{
-		aux[cont] = (char)c;
+		*aux = (char)c;
 		cont++;
+		aux++;
 	}
-	return (b);
+	return (str);
 }

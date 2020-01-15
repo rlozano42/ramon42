@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/21 17:28:18 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/06 12:42:32 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:23:08 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:23:10 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@ void	ft_bzero(void *s, size_t n)
 	char	*aux;
 	size_t	cont;
 
+	aux = (char *)s;
 	cont = 0;
-	aux = (char*)s;
-	
-	if (s != NULL)
-	{
 	while (cont < n)
 	{
-		aux[cont] = 0;
+		*aux = '\0';
 		cont++;
-	}
+		aux++;
 	}
 }

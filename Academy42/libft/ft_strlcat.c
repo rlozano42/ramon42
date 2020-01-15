@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 15:44:39 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/05 21:39:58 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:19:40 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:19:41 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t	i;
-	size_t	j;
-	size_t	result;
+	size_t len;
+	size_t cont;
 
-	i = ft_strlen(dst);
-	result = ft_strlen(src);
-	if (i <= dstsize)
-		result = result + i;
-	else
-		result = result + dstsize;
-	if (i > dstsize)
-		return (result);
-	j = 0;
-	while (src[j] != '\0' && i + 1 < dstsize)
-		dst[i++] = src[j++];
-	dst[i] = '\0';
-	return (result);
+	len = 0;
+	cont = 0;
+	while (dst[cont] && cont < dstsize)
+		cont++;
+	len = cont;
+	while (src[cont - len] && cont + 1 < dstsize)
+	{
+		dst[cont] = src[cont - len];
+		cont++;
+	}
+	if (len < dstsize)
+		dst[cont] = '\0';
+	return (len + ft_strlen(src));
 }

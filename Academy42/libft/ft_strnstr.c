@@ -5,57 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/19 10:45:36 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/06 12:59:34 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:21:33 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:21:35 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_strcmp(char *s1, char *s2)
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
-	int			l;
-	int			vuelt;
+	size_t			i;
+	char			*aux1;
+	char			*aux2;
 
-	l = 0;
-	while (s1[l] || s2[l])
+	if (!*s2)
+		return ((char *)s1);
+	while (n-- && *s1)
 	{
-		if (s1[l] != s2[l])
+		if (*s1 == *s2)
 		{
-			vuelt = s1[l] - s2[l];
-			return (vuelt);
+			i = n;
+			aux1 = (char *)s1 + 1;
+			aux2 = (char *)s2 + 1;
+			while (i-- && *aux1 && *aux2 && *aux1 == *aux2)
+			{
+				++aux1;
+				++aux2;
+			}
+			if (!*aux2)
+				return ((char *)s1);
 		}
-		l++;
+		++s1;
 	}
-	return (0);
-}
-
-char			*ft_strnstr(const char *big, const char *little, size_t len)
-{
-	size_t		n;
-	size_t		i;
-
-	i = 0;
-	if (big == NULL || little == NULL)
-		return (NULL);
-	if (big[0] == '\0' && little != '\0')
-		return (0);
-	if (little[0] == '\0')
-		return ((char *)big);
-	i = ft_strcmp((char *)big, (char *)little);
-	if (i == 0)
-		return ((char *)big);
-	while (*big && len != 0)
-	{
-		n = 0;
-		while (big[n] == little[n] && big[n] != '\0')
-		{
-			n++;
-			if (little[n] == '\0' && n < len)
-				return ((char *)big);
-		}
-		big++;
-		len--;
-	}
-	return (0);
+	return (NULL);
 }

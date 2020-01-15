@@ -5,27 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 19:08:10 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/06 12:43:33 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:24:33 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:24:34 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			*ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t			count;
-	unsigned char	*cpy;
+	unsigned char	*aux;
 
-	count = 0;
-	cpy = (unsigned char *)s;
-	if (s == NULL)
-		return (NULL);
-	while (n--)
+	aux = (unsigned char *)s;
+	while (n-- > 0)
 	{
-		if (*cpy == (unsigned char)c)
-			return ((void *)cpy);
-		cpy++;
+		if (*aux == (unsigned char)c)
+			return ((void*)aux);
+		aux++;
 	}
 	return (0);
 }

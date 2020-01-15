@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/23 15:51:50 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/06 13:28:55 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:24:52 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:24:53 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	if (n < 0)
+	char		*aux1;
+	char		*aux2;
+	size_t		cont;
+
+	cont = 0;
+	aux1 = (char *)s1;
+	aux2 = (char *)s2;
+	while (n > 0)
 	{
-		while (n >= 0)
-		{
-			if (*(char *)s1 != *(char *)s2)
-				return (*(unsigned char *)s1 - *(unsigned char *)s2);
-			s1++;
-			s2++;
-			n--;		
-		}
+		if (aux1[cont] != aux2[cont])
+			return (((unsigned char)aux1[cont]) - ((unsigned char)aux2[cont]));
+		cont++;
+		n--;
 	}
 	return (0);
 }

@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcopy.c                                      :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/18 19:50:43 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/05 13:00:37 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:20:22 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:20:24 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int	x;
-	int	count;
-	int	size_count;
+	size_t	len;
+	int		it;
 
-	count = 0;
-	if (dest == NULL || src == NULL)
+	if (!dst)
 		return (0);
-	while (src[count] != '\0')
-		count++;
-	if (size == 0)
-		return (count);
-	x = 0;
-	size_count = size - 1;
-	while (src[x] != '\0' && x < size_count)
+	it = 0;
+	len = ft_strlen(src);
+	while (src[it] != '\0' && it < (int)(dstsize - 1))
 	{
-		dest[x] = src[x];
-		x++;
+		dst[it] = src[it];
+		it++;
 	}
-	dest[x] = '\0';
-	return (count);
+	if (dstsize)
+		dst[it] = '\0';
+	return (len);
 }

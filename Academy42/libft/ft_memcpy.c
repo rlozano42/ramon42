@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memcpy.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 11:17:24 by rlozano           #+#    #+#             */
-/*   Updated: 2019/12/05 20:05:17 by rlozano          ###   ########.fr       */
+/*   Created: 2019/12/08 14:23:23 by rlozano           #+#    #+#             */
+/*   Updated: 2019/12/08 14:23:25 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	void *aux;
+	const unsigned char	*aux1;
+	unsigned char		*aux2;
 
-	aux = dst;
-	if (dst == NULL && src == NULL)
-		return (0);
-	if (n == 0)
-		return (dst);
+	aux1 = (const unsigned char *)src;
+	aux2 = (unsigned char *)dest;
+	if ((dest == NULL && src == NULL) || !n)
+		return (dest);
 	while (n > 0)
 	{
-		if (n != 0)
-		{
-			*(char *)dst = *(char *)src;
-			n--;
-		}
-		src++;
-		dst++;
+		*aux2 = *aux1;
+		aux1++;
+		aux2++;
+		n--;
 	}
-	return (aux);
+	return (dest);
 }
