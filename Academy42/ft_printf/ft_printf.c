@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:54:32 by rlozano           #+#    #+#             */
-/*   Updated: 2020/01/23 17:02:51 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/01/28 22:00:17 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		ft_checkflags(ram *param)
 int			ft_printf(const char *str, ...)
 {
 	ram param;
-	param.len = 0;
+	ft_init(&param);
 	param.str = str;
 	va_start(param.ap,str);
 	while (*param.str)
@@ -74,8 +74,20 @@ int			ft_printf(const char *str, ...)
 
 int main()
 {
-	int c;
-	printf("Hola perica %.5d\n", 4);
-	c = ft_printf("Hola perica %d\n", 4);
-	printf("%d", c);
+	printf("Hola perica %10c\n", 'g');
+	ft_printf("Hola perica %10c\n", 'g');
+	printf("Hola perica %3d\n", 33);
+	ft_printf("Hola perica %3d\n", 33);
+	printf("Hola perica %1s\n","hola");
+	ft_printf("Hola perica %1s\n", "hola");
+	printf("Hola perica %9i\n", 25);
+	ft_printf("Hola perica %9i\n", 25);
+	printf("Hola perica %10p\n", "hola"); 
+	ft_printf("Hola perica %10p\n", "hola");
+	printf("Hola perica %9x\n", 45);
+	ft_printf("Hola perica %9x\n", 45);
+	printf("Hola perica %9X\n", 500);
+	ft_printf("Hola perica %9X\n", 500);
+	ft_printf("Hola perica %9u\n", 39);
+	printf("Hola perica %9u\n", 39);
 }

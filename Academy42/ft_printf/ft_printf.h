@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 19:40:01 by rlozano           #+#    #+#             */
-/*   Updated: 2020/01/22 20:29:38 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/01/28 21:40:02 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ typedef struct		t_ram
 	unsigned int minus;
 	unsigned int precision;
 	unsigned int len;
+	unsigned int conv;
+	unsigned int arg;
 	const char *str;
 	va_list		ap;
+	char		*aux;
 }					ram;
 
 int		ft_printf(const char *string, ...);
@@ -50,4 +53,8 @@ char	*ft_itoa_base(unsigned long int x);
 char	*ft_itoa_basex(unsigned int x);
 char	*ft_itoa_basebig(unsigned int x);
 void	ft_unsigned(ram *param);
+void	ft_width(ram *param);
+void	ft_precision(ram *param);
+void	ft_precisionstr(ram *param);
+void	ft_init(ram *param);
 #endif
