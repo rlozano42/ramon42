@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_reinit.c                                        :+:      :+:    :+:   */
+/*   ft_aster.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 16:17:52 by rlozano           #+#    #+#             */
-/*   Updated: 2020/02/05 13:30:22 by rlozano          ###   ########.fr       */
+/*   Created: 2020/01/29 16:06:23 by rlozano           #+#    #+#             */
+/*   Updated: 2020/01/29 16:48:07 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_init(ram *param)
+void ft_astwidth(ram *param)
 {
-    param->conv = 0;
-    param->count = 0;
-    param->arg = 0;
-    param->len = 0;
-    param->minus = 0;
-    param->precision = 0;
-    param->width = 0;
-    param->zero = 0;
-    param->punt = 0;
-    param->min = 0;
-    param->sign = 0;
+    int nu;
+
+    nu = 0;
+    nu = va_arg(param->ap, int);
+    if (nu < 0)
+        param->minus = 1;
+    if (nu == 0)
+        param->zero = 1;
+    param->width = nu;
+	param->str++; 
+    ft_checkall(param);
+}
+void ft_astpre(ram *param)
+{
+    int nu;
+
+    nu = 0;
+    nu = va_arg(param->ap, int); 
+    param->precision = nu;
+	param->str++; 
+    ft_checkall(param);
 }

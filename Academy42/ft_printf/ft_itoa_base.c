@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlozano <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 17:34:49 by rlozano           #+#    #+#             */
-/*   Updated: 2020/01/22 20:14:35 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:03:43 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ char                *ft_itoa_base(unsigned long int x)
 	digit_n = 0;
 	base = "0123456789abcdef";
     n = x;
-	while (n >= 10)
+	while (n >= 1)
     {
         digit_n = digit_n + 1;
-        n = n / 10;
+        n = n / 16;
     }
     if (!(hex = malloc(sizeof(char) * (digit_n + 1))))
         return (0); 

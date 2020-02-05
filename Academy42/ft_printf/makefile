@@ -1,41 +1,53 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlozano <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/15 18:37:57 by rlozano           #+#    #+#              #
-#    Updated: 2020/01/15 18:43:16 by rlozano          ###   ########.fr        #
+#    Created: 2020/01/30 17:08:42 by rlozano           #+#    #+#              #
+#    Updated: 2020/02/05 13:12:53 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME	=	libftprintf.a
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+SRCS	=	ft_aster.c \
+			ft_reinit.c \
+			ft_int.c \
+			ft_itoa_base.c \
+			ft_preidth.c \
+			ft_type.c \
+			ft_printf.c \
+			ft_printu.c \
+			ft_putstr.c
 
-INCLUDES= ./
+OBJS	:= ${SRCS:.c=.o}
 
-SRCS = *.c
+CC		= gcc
+CFLAGS	= -Wall -Werror -Wextra -I.
+RM		= rm -f
 
-OBJS: ${SRCS:.c=.o}
+all: ${NAME}
 
-NAME = libftprintf.a
+%.o: %.c
+		${CC} ${CFLAGS} -c $< -o $@
 
-all: $(NAME)
-
-$(NAME) = $(OBJS)
-	$(CC) $(CFLAGS) -I $(INCLUDES) -c $(SRCS)
-   ar -rcs $(NAME) $(OBJS)	
+%.o: libft/%.c
+	${CC} ${CFLAGS} -c $< -o $@
+	
+${NAME}:${OBJS}
+		make -C libft 
+		ar rc ${NAME} libft/*.o ${OBJS}
 
 debug:
-	$(CC) $(CFLAGS) -I $(INCLUDES) -c $(SRCS) -g	
+		$(CC) $(CFLAGS) -g $(SRCS) libft/ft_*.c -I libft
 
 clean:
-	-@ rm -f *.o
+		${RM} ${OBJS}
 
-fclean: clean
-	-@ rm $(NAME)
+fclean:	clean
+		${RM} ${NAME} libft/*.o *.o
 
-re: fclean all
-.PHONY: clean fclean re all
+re:		fclean all
+.PHONY: all clean fclean re
