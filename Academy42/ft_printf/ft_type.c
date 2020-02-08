@@ -6,13 +6,13 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:17:15 by rlozano           #+#    #+#             */
-/*   Updated: 2020/02/05 13:17:47 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/02/06 16:20:17 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_char(ram *param)
+void		ft_char(t_ram *param)
 {
 	char *aux;
 
@@ -38,57 +38,8 @@ void	ft_char(ram *param)
 	param->str++;
 }
 
-void	ft_string(ram *param)
+void		ft_checktype(t_ram *param)
 {
-	char *aux;
-	
-	param->arg = 0;	
-	aux = va_arg(param->ap, char*);
-	if (aux == NULL)
-		aux = ft_strdup("(null)");
-	param->arg = ft_strlen(aux);
-	if ((param->precision < param->arg) && (param->punt == 1))
-		param->arg = param->precision;
-	param->aux = aux;
-	if (param->minus == 1)
-	{
-		if ((param->precision == param->arg) && (param->precision >= 0 ) && (param->punt == 1))
-			ft_precisionstr(param);
-		else
-		{
-			while (*aux)
-			{
-				write(1, &aux[0], 1);
-				aux++;
-				param->len++;
-			}
-		}
-		ft_widthchar(param);
-	}
-	else
-	{
-		if ((param->precision == param->arg) && (param->precision >= 0 ) && (param->punt == 1))
-		{
-			ft_widthchar(param);
-			ft_precisionstr(param);
-		}
-		else 
-		{
-			ft_widthchar(param);
-			while (*aux)
-			{
-				write(1, &aux[0], 1);
-				aux++;
-				param->len++;
-			}
-		}
-	}
-	param->str++;
-}
-
-void ft_checktype(ram *param)
-{
-
 	if (*param->str == 'c')
 		ft_char(param);
 	else if (*param->str == 's')
@@ -107,7 +58,7 @@ void ft_checktype(ram *param)
 		ft_five(param);
 }
 
-void	ft_checkall(ram *param)
+void		ft_checkall(t_ram *param)
 {
 	if (*param->str == '*')
 		ft_astwidth(param);
@@ -118,7 +69,7 @@ void	ft_checkall(ram *param)
 		param->str++;
 		if (*param->str == '*')
 			ft_astpre(param);
-		else 
-		ft_checkprecision(param);
+		else
+			ft_checkprecision(param);
 	}
 }

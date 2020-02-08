@@ -6,7 +6,7 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/30 17:08:42 by rlozano           #+#    #+#              #
-#    Updated: 2020/02/05 13:12:53 by rlozano          ###   ########.fr        #
+#    Updated: 2020/02/06 16:03:30 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,10 @@ SRCS	=	ft_aster.c \
 			ft_type.c \
 			ft_printf.c \
 			ft_printu.c \
-			ft_putstr.c
+			ft_string.c \
+			ft_preci.c \
+			ft_hexadecimal.c \
+			ft_hexadecimalp.c
 
 OBJS	:= ${SRCS:.c=.o}
 
