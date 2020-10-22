@@ -6,17 +6,17 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/10/21 13:26:41 by rlozano          ###   ########.fr        #
+#    Updated: 2020/10/22 12:04:28 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3d
 
-SRC = ft_space.c includes/ft_printf/libft/*.c 
+SRC = ft_space.c ft_handle.c includes/ft_printf/libft/*.c 
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 
-SRCCUB = readmap.c
+SRCCUB = main.c
 
 SRCMLX = includes/minilibx
 

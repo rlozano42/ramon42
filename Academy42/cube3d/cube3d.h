@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/10/21 14:11:20 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/10/22 12:11:23 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <string.h>
 
 typedef struct	s_cam{
+	int			izq;
+    int         drch;
 	int			up;
 	int			down;
 	void		*mlx_ptr;
@@ -51,12 +53,23 @@ typedef struct s_man
 }				t_man;
 
 
-//void 			ft_init(t_cam *param);
-//int				down(int keycode, t_cam *param);
-//int				release(int keycode, t_cam *param);
-//int				test2(t_cam *param);
+void 			ft_initiate(t_cam *param);
+int				down(int keycode, t_cam *param);
+int				release(int keycode, t_cam *param);
+int				test2(t_cam *param);
 void			ft_handleresolution(t_man *param);
 int				is_digit(char c);
 int				is_space(char c);
+void	ft_handleceiling(t_man *param);
+void	ft_handlefloor(t_man *param);
+void	ft_handlesprite(t_man *param);
+void	ft_handleeast(t_man *param);
+void	ft_handlewest(t_man *param);
+void	ft_handlesouth(t_man *param);
+void	ft_handlenorth(t_man *param);
+void	ft_handleresolution(t_man *param);
+
+
+
 
 #endif

@@ -1,36 +1,21 @@
 #include "mlx.h"
+#include "cube3d.h"
 
-typedef struct  s_ram{
-    int         izq;
-    int         drch;
-    int         up;
-    int         down;
-    void        *mlx_ptr;
-    void        *win_ptr;
-    void        *img;
-    int         i;
-    int         j;
-    int         *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_ram;
-
-int     down(int keycode, t_ram *param)
+int     down(int keycode, t_cam *param)
 {
     if (keycode == 126)
         param->up = 1;
     printf("Down: %d\n", keycode);
 }
 
-int     release(int keycode, t_ram *param)
+int     release(int keycode, t_cam *param)
 {
     if (keycode == 126)
         param->up = 0;
     printf("Release: %d\n", keycode);
 }
 
-void    ft_init(t_ram *param)
+void    ft_initiate(t_cam *param)
 {
     param->izq = 0;
     param->drch = 0;
@@ -40,7 +25,7 @@ void    ft_init(t_ram *param)
     param->i = 0;
 }
 
-int test2(t_ram *param)
+int test2(t_cam *param)
 {
     if (param->up == 1)
     {
@@ -70,9 +55,9 @@ int test2(t_ram *param)
 
 int main()
 {
-    t_ram param;
+    t_cam param;
 
-    ft_init(&param);
+    ft_initiate(&param);
     param.mlx_ptr = mlx_init();
     param.win_ptr = mlx_new_window(param.mlx_ptr, 800, 800, "mlx 42");
 
