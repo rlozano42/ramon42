@@ -3,30 +3,51 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlozano <rlozano@student.42madrid.com      +#+  +:+       +#+         #
+#    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/07/08 19:37:15 by rlozano          ###   ########.fr        #
+#    Updated: 2020/10/21 13:26:41 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cube3d.a
-SRC = ft_space.c ft_printf/libft/*.c 
-SRCGNL = GNL/get_next_line.c GNL/get_next_line_utils.c
+NAME = Cub3d
+
+SRC = ft_space.c includes/ft_printf/libft/*.c 
+
+SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
+
 SRCCUB = readmap.c
+
+SRCMLX = includes/minilibx
+
+SRCLIBFT = includes/ft_printf/libft
+
+SRCPRINTF = includes/ft_printf
+
 CC = gcc 
 RM = rm -f
 all: $(NAME)
-$(NAME): 
-	${CC} ${SRC} ft_printf/libftprintf.a ft_printf/libft/libft.a  ${SRCGNL} minilibx-linux/libmlx.a ${SRCCUB}  #-framework OpenGL -framework AppKit 
+
+$(NAME):
+	@make -C $(SRCLIBFT)
+	@make -C $(SRCPRINTF)
+	@make -C $(SRCMLX)
+	${CC} ${SRC} includes/ft_printf/libftprintf.a includes/ft_printf/libft/libft.a  ${SRCGNL} includes/minilibx/libmlx.a ${SRCCUB}  #-framework OpenGL -framework AppKit 
+	
 bonus:
-	${CC}  ${SRC} ft_printf/libftprintf.a  ft_printf/libft/libft.a ${SRCGNL} minilibx-linux/libmlx.a ${SRCCUB} #-framework OpenGL -framework AppKit
+	@make -C $(SRCLIBFT)
+	@make -C $(SRCPRINTF)
+	@make -C $(SRCMLX)
+	${CC}  ${SRC} includes/ft_printf/libftprintf.a  includes/ft_printf/libft/libft.a ${SRCGNL} includes/minilibx-linux/libmlx.a ${SRCCUB} #-framework OpenGL -framework AppKit
+
 debug:
-	${CC}  ${SRC} ft_printf/libftprintf.a  ft_printf/libft/libft.a ${SRCGNL} minilibx-linux/libmlx.a ${SRCCUB} -g  #-framework OpenGL -framework AppKit
+	${CC}  ${SRC} includes/ft_printf/libftprintf.a  includes/ft_printf/libft/libft.a ${SRCGNL} includes/minilibx-linux/libmlx.a ${SRCCUB} -g  #-framework OpenGL -framework AppKit
+
 fclean:
 	${RM} ${OBJ} ${OBJBONUS}
 	${RM} ${NAME} ${OBJBONUS}
 	@echo "Cleaning Cub3d..."
+
 clean:
 	${RM} ${OBJ} ${OBJBONUS}
 	@echo "Cleaning hashcode objects..."
