@@ -16,7 +16,7 @@ SRC = ft_space.c ft_handle.c includes/ft_printf/libft/*.c
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 
-SRCCUB = main.c
+SRCCUB = readmap.c
 
 SRCMLX = includes/minilibx
 

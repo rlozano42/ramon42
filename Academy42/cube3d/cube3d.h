@@ -36,7 +36,7 @@ typedef struct	s_cam{
 	int			endian;
 }				t_cam;
 
-typedef struct s_man
+typedef struct s_map
 {
 	int		fd;
 	char	*line;
@@ -50,24 +50,24 @@ typedef struct s_man
 	char	**aux;
 	int 	floor[3];
 	int		ceiling[3];
-}				t_man;
+}				t_map;
 
 
 void 			ft_initiate(t_cam *param);
 int				down(int keycode, t_cam *param);
 int				release(int keycode, t_cam *param);
 int				test2(t_cam *param);
-void			ft_handleresolution(t_man *param);
+void			ft_handleresolution(t_map *param);
 int				is_digit(char c);
 int				is_space(char c);
-void	ft_handleceiling(t_man *param);
-void	ft_handlefloor(t_man *param);
-void	ft_handlesprite(t_man *param);
-void	ft_handleeast(t_man *param);
-void	ft_handlewest(t_man *param);
-void	ft_handlesouth(t_man *param);
-void	ft_handlenorth(t_man *param);
-void	ft_handleresolution(t_man *param);
+void	ft_handleceiling(t_map *param);
+void	ft_handlefloor(t_map *param);
+void	ft_handlesprite(t_map *param);
+void	ft_handleeast(t_map *param);
+void	ft_handlewest(t_map *param);
+void	ft_handlesouth(t_map *param);
+void	ft_handlenorth(t_map *param);
+void	ft_handleresolution(t_map *param);
 
 
 
