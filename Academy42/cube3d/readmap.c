@@ -6,12 +6,11 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 20:08:55 by rlozano           #+#    #+#             */
-/*   Updated: 2020/10/22 10:32:28 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/10/23 14:26:31 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include <string.h>
 
 void	ft_handle(t_map *param)
 {
@@ -39,8 +38,15 @@ void	ft_handle(t_map *param)
 void	ft_handlesprite(t_map *param)
 {
 	param->aux = ft_split(param->line, ' ');
-	param->sprite = param->aux[1];
-	printf("NO = %s\n", param->sprite);
+	ft_check(param);
+	ft_checkrouth(param);
+	if (param->len == 2)
+	{
+		param->sprite = param->aux[1];
+		printf("NO = %s\n", param->sprite);
+	}
+	else
+		ft_throw_error("ERROR: check sprite");
 }
 
 void	ft_handlefloor(t_map *param)
@@ -57,7 +63,9 @@ void	ft_handlefloor(t_map *param)
 		param->line++;
 	param->line++;
 	param->floor[2] = atoi(param->line);
+	check_updown(param, 'f');
 	printf("2 = %d\n", param->floor[2]);
+
 }
 
 void	ft_handleceiling(t_map *param)
@@ -74,6 +82,10 @@ void	ft_handleceiling(t_map *param)
 		param->line++;
 	param->line++;
 	param->ceiling[2] = atoi(param->line);
+	while (*param->line == ' ' || ft_isdigit(*param->line))
+		param->line++;
+	param->line++;
+	check_updown(param, ' ');
 	printf("2 = %d\n", param->ceiling[2]);
 }
 
