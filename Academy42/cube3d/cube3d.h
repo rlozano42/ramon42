@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/10/23 13:54:48 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/10/27 13:58:44 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ typedef struct s_map
 	int 	floor[3];
 	int		ceiling[3];
 	int		len;
+	int		column;
+	int		flag;
+	int		row;
+	char	*map;
+	char	*map2;
+	char	**finalmap;
 }				t_map;
 
 
@@ -67,18 +73,19 @@ int				test2(t_cam *param);
 void			ft_handleresolution(t_map *param);
 int				is_digit(char c);
 int				is_space(char c);
-void	ft_handleceiling(t_map *param);
-void	ft_handlefloor(t_map *param);
-void	ft_handlesprite(t_map *param);
-void	ft_handleeast(t_map *param);
-void	ft_handlewest(t_map *param);
-void	ft_handlesouth(t_map *param);
-void	ft_handlenorth(t_map *param);
-void	ft_handleresolution(t_map *param);
-void	ft_throw_error(const char  *str);
-void	check_updown(t_map *param, char str);
-void	ft_check(t_map *param);
-void    ft_checkrouth(t_map *param);
-
+void			ft_handleceiling(t_map *param);
+void			ft_handlefloor(t_map *param);
+void			ft_handlesprite(t_map *param);
+void			ft_handleeast(t_map *param);
+void			ft_handlewest(t_map *param);
+void			ft_handlesouth(t_map *param);
+void			ft_handlenorth(t_map *param);
+void			ft_handleresolution(t_map *param);
+void			ft_throw_error(const char  *str);
+void			check_updown(t_map *param, char str);
+void			ft_check(t_map *param);
+void		    ft_checkrouth(t_map *param);
+void			ft_checkcolumn(t_map *param);
+int				check_map(t_map *param);
 
 #endif

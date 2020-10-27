@@ -6,17 +6,17 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/10/23 13:19:34 by rlozano          ###   ########.fr        #
+#    Updated: 2020/10/25 12:47:21 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3d
 
-SRC = ft_space.c check.c ft_handle.c includes/libft/*.c 
+SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 
-SRCCUB = readmap.c
+SRCCUB =   readmap.c #main.c
 
 SRCMLX = includes/minilibx
 
@@ -29,15 +29,15 @@ all: $(NAME)
 $(NAME):
 	@make -C $(SRCLIBFT)
 	@make -C $(SRCMLX)
-	${CC} ${SRC}  includes/libft/libft.a  ${SRCGNL} includes/minilibx/libmlx.a ${SRCCUB}  #-framework OpenGL -framework AppKit 
+	${CC} ${SRC}  includes/libft/libft.a  ${SRCGNL} includes/minilibx/libmlx.a ${SRCCUB}  -framework OpenGL -framework AppKit 
 	
 bonus:
 	@make -C $(SRCLIBFT)
 	@make -C $(SRCMLX)
-	${CC}  ${SRC}  includes/libft/libft.a ${SRCGNL} includes/minilibx/libmlx.a ${SRCCUB} #-framework OpenGL -framework AppKit
+	${CC}  ${SRC}  includes/libft/libft.a ${SRCGNL} includes/minilibx/libmlx.a ${SRCCUB} -framework OpenGL -framework AppKit
 
 debug:
-	${CC}  ${SRC}  includes/libft/libft.a ${SRCGNL} includes/minilibx/libmlx.a ${SRCCUB} -g  #-framework OpenGL -framework AppKit
+	${CC}  ${SRC}  includes/libft/libft.a ${SRCGNL} includes/minilibx/libmlx.a ${SRCCUB} -g  -framework OpenGL -framework AppKit
 
 fclean:
 	${RM} ${OBJ} ${OBJBONUS}
