@@ -6,13 +6,13 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/10/25 12:47:21 by rlozano          ###   ########.fr        #
+#    Updated: 2020/10/28 10:52:32 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3d
 
-SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c
+SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c 
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 

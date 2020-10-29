@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 20:08:55 by rlozano           #+#    #+#             */
-/*   Updated: 2020/10/27 13:58:32 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/10/29 13:21:09 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	ft_handle(t_map *param)
 		ft_handlenorth(param);
 	else if (ft_strnstr(param->line, "SO", 2) != NULL)
 		ft_handlesouth(param);
-	else if (ft_strchr(param->line, 'W') &&
-	ft_strchr(++param->line, 'E') != NULL)
+	else if (ft_strnstr(param->line, "WE", 2) != NULL)
 		ft_handlewest(param);
 	else if (ft_strchr(param->line, 'E') &&
 	ft_strchr(++param->line, 'A') != NULL)
@@ -43,11 +42,25 @@ void	ft_handle(t_map *param)
 	}
 	else if (ft_strchr(param->line, '1') != NULL)
 	{
+		char *map2;
+		int		x;
+
+		x = 0;
 		param->row++;
-		param->map2 = ft_strdup(param->line);
-		param->map = ft_strjoin_gnl(param->map, param->map2);
+		map2 = ft_strdup(param->line);
+		if (ft_strchr(map2, 'W') != NULL)
+		{
+			while (map2[x] != '\0')
+			{
+				if (map2[x] == 'W')
+					map2[x] = '0';
+				x++;
+			}
+		}
+		param->map = ft_strjoin_gnl(param->map, map2);
 		param->map = ft_strjoin_gnl(param->map, "\n");
-		free(param->map2);
+		free(map2);
+		ft_checkcolumn(param);
 	}
 }
 
@@ -102,7 +115,7 @@ int		main(int argc, char **argv)
 {
 	t_map param;
 	int		end;
-	
+	int y = 0;
 	argc = 1;
 	param.fd = open(argv[1], O_RDONLY);
 	while ((end = get_next_line(param.fd, &param.line)) >= 0)
@@ -111,9 +124,20 @@ int		main(int argc, char **argv)
 		if (end == 0)
 		{
 			param.finalmap = ft_split(param.map, '\n');
-			ft_check_map(&param);
+			final_checkmap(&param);
+			if (check_map(param.finalmap, param.position_x, param.position_y, &param) != 1)
+				ft_throw_error("Map is not closed");
+			else
+				printf("\nFunciona");
+
+
 //			printf("Filas: %d", param.row);
-			printf("Mapa: %s", param.map);
+//		printf("Mapa:\n%s", param.map);
+/*while (param.finalmap[y] != NULL)
+{
+	printf("%s\n", param.finalmap[y]);
+	y++;
+}*/
 			break;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/10/27 13:58:44 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/10/29 13:02:56 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ typedef struct s_map
 	char	**aux;
 	int 	floor[3];
 	int		ceiling[3];
+	int		position_x;
+	int		position_y;
 	int		len;
 	int		column;
 	int		flag;
 	int		row;
 	char	*map;
-	char	*map2;
 	char	**finalmap;
 }				t_map;
 
@@ -86,6 +87,8 @@ void			check_updown(t_map *param, char str);
 void			ft_check(t_map *param);
 void		    ft_checkrouth(t_map *param);
 void			ft_checkcolumn(t_map *param);
-int				check_map(t_map *param);
+int				check_map(char **map, int row, int col, t_map *param);
+void			final_checkmap(t_map *param);
+
 
 #endif
