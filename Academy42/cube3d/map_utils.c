@@ -6,20 +6,9 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 10:32:13 by rlozano           #+#    #+#             */
-/*   Updated: 2020/10/28 10:52:16 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/10/30 08:58:39 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-/*void    ft_findman(t_map *param)
-{
-    while (param->line != '\0')
-    {
-        if (*param->line == 'N' || *param->line == 'S' || *param->line == 'E' || *param->line == 'W')
-        {
-            
-        }
-    }
-    
-}*/

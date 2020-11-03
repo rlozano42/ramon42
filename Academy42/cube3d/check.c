@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:20:20 by rlozano           #+#    #+#             */
-/*   Updated: 2020/10/29 12:58:34 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/02 12:14:40 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	ft_throw_error(const char *str)
 {
-	perror(str);
+	char	*str2;
+
+	str2 = ft_strjoin("Error\n", (char *)str);
+	perror(str2);
+	free(str2);
 	exit(EXIT_FAILURE);
 }
 
@@ -60,14 +64,13 @@ void ft_checkcolumn(t_map *param)
 	len  = 0;
 	while (*param->line != '\0')
 	{
-		x++;
 		if (*param->line == 'N' || *param->line == 'S' || *param->line == 'E' || *param->line == 'W')
 		{
-			param->position_x = x;
-			param->position_y = param->row;
+			param->position_x = param->row;
+			param->position_y = x;
 //			printf("Posición %d, %d\n", param->position_y, param->position_x);
-			*param->line = '0';
 		}
+		x++;
 		len++;
 		param->line++;
 	}
@@ -76,22 +79,24 @@ void ft_checkcolumn(t_map *param)
 //	printf("Columnas %d\n", param->column);
 }
 
-int				check_map(char **map, int row, int col, t_map *param)
+int				check_map(int row, int col, t_map *param)
 {
 	int			ok;
+	char		c;
 	
 	if (row < 0 || col < 0 || row >= param->row
-	|| col >= param->column)
+	|| col >= param->column )
 		return (1);
-	if (map[row][col] == ' ')
-		return(1);
-	else if (map[row][col] == '3' || map[row][col] == '1')
+	c = param->finalmap[row][col];
+	if (c == ' ')
+		return (1);
+	else if (c == '3' || c == '1')
 		return (0);
-	map[row][col] = '3';
-	ok = check_map(map, row, col - 1, param);
-	ok = ok == 0 ? check_map(map, row, col + 1, param) : ok;
-	ok = ok == 0 ? check_map(map, row - 1, col, param) : ok;
-	ok = ok == 0 ? check_map(map, row + 1, col, param) : ok;
+	param->finalmap[row][col] = '3';
+	ok = check_map(row, col - 1, param);
+	ok = ok == 0 ? check_map(row, col + 1, param) : ok;
+	ok = ok == 0 ? check_map(row - 1, col, param) : ok;
+	ok = ok == 0 ? check_map(row + 1, col, param) : ok;
 	return (ok);
 }
 
