@@ -6,7 +6,7 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/11/03 13:13:42 by rlozano          ###   ########.fr        #
+#    Updated: 2020/11/05 09:56:00 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 
-SRCCUB =  raycasting.c #main.c #readmap.c 
+SRCCUB =  raycasting.c readmap.c cub3d.c 
 
 SRCMLX = includes/minilibx
 

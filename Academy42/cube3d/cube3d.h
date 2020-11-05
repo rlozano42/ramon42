@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/03 13:14:38 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/05 11:02:22 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,29 @@ typedef struct	s_cam{
 	int			endian;
 }				t_cam;
 
+typedef struct s_ray
+{
+  	double 			time; 
+  	double 			oldTime; 
+  	unsigned int 	color;
+	double 			cameraX;
+	double 			rayDirX;
+	double 			rayDirY;
+	int 			mapX;
+	int 			mapY;
+	double 			sideDistX;
+	double 			sideDistY; //length of ray from current position to next x or y-side
+	double 			deltaDistX; 
+	double 			deltaDistY; 
+	double 			perpWallDist;
+	int 			stepX;       //what direction to step in x or y-direction (either +1 or -1)
+    int 			stepY;
+	int 			side; //was a NS or a EW wall hit?
+	int 			lineHeight;
+	int 			drawStart;
+	int 			drawEnd;
+}				t_ray;
+
 typedef struct s_map
 {
 	int		fd;
@@ -64,6 +87,10 @@ typedef struct s_map
 	int		row;
 	char	*map;
 	char	**finalmap;
+	double 			dirX;
+	double			dirY; 
+  	double 			planeX;
+	double			planeY; 
 }				t_map;
 
 
@@ -87,9 +114,9 @@ void			check_updown(t_map *param, char str);
 void			ft_check(t_map *param);
 void		    ft_checkrouth(t_map *param);
 void			ft_checkcolumn(t_map *param);
-int				check_map(int row, int col, t_map *param);
+int				check_map(char **map, int row, int col,int Maxrow,int Maxcol);
 void			final_checkmap(t_map *param);
-void    		ft_initiate(t_cam *param);
-
+void			ft_readmap(char *mapa, t_map *param);
+void 			init_raycasting(t_map *param);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 20:08:55 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/02 12:29:35 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/05 12:16:09 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@ void	ft_handle(t_map *param)
 		param->line++;	
 	if ((ft_strchr(param->line, 'R')) != NULL)
 		ft_handleresolution(param);
-	else if (ft_strchr(param->line, 'N') &&
-	ft_strchr(++param->line, 'O') != NULL)
+	else if (ft_strnstr(param->line, "NO", 2) != NULL)
 		ft_handlenorth(param);
 	else if (ft_strnstr(param->line, "SO", 2) != NULL)
 		ft_handlesouth(param);
 	else if (ft_strnstr(param->line, "WE", 2) != NULL)
 		ft_handlewest(param);
-	else if (ft_strchr(param->line, 'E') &&
-	ft_strchr(++param->line, 'A') != NULL)
+	else if (ft_strnstr(param->line, "EA", 2) != NULL)
 		ft_handleeast(param);
 	else if (ft_strnstr(param->line, "S ", 2) != NULL)
 		ft_handlesprite(param);
@@ -39,29 +37,34 @@ void	ft_handle(t_map *param)
 		param->map = ft_strdup(param->line);
 		param->map = ft_strjoin_gnl(param->map, "\n");
 		ft_checkcolumn(param);
-		param->row++;
+		param->column++;
 	}
 	else if (ft_strchr(param->line, '1') != NULL)
 	{
 		char *map2;
 		int		x;
+		
 
 		x = 0;
 		map2 = ft_strdup(param->line);
-		if (ft_strchr(map2, 'W') != NULL)
+		while (x < 25)
 		{
-			while (map2[x] != '\0')
+			if (map2[x] == 'N' || map2[x] == 'S' || map2[x] == 'E' || map2[x] == 'W')
 			{
-				if (map2[x] == 'W')
-					map2[x] = '0';
-				x++;
+				while (map2[x] != '\0')
+				{
+					if (map2[x] == 'N' || map2[x] == 'S' || map2[x] == 'E' || map2[x] == 'W')
+						map2[x] = '0';
+					x++;
+				}
 			}
+			x++;
 		}
 		param->map = ft_strjoin_gnl(param->map, map2);
 		param->map = ft_strjoin_gnl(param->map, "\n");
-		free(map2);
+		map2 = ft_strdup("");
 		ft_checkcolumn(param);
-		param->row++;
+		param->column++;
 	}
 }
 
@@ -112,34 +115,52 @@ void	ft_handleceiling(t_map *param)
 	check_updown(param, ' ');
 }
 
-int		main(int argc, char **argv)
+
+char		**copy_matrix(int n_row, char **map)
 {
-	t_map param;
+	char	**matrix;
+	int		i;
+
+	i = 0;
+	matrix = (char**)malloc((n_row + 1) * sizeof(char*));
+	while (i < n_row)
+	{
+		matrix[i] = ft_strdup(map[i]);
+		i++;
+	}
+	matrix[i] = NULL;
+	return (matrix);
+}
+
+void	ft_readmap(char *mapa, t_map *param)
+{
 	int		end;
 	int y = 0;
-	ft_bzero(&param, sizeof(t_map));
+	ft_bzero(param, sizeof(t_map));
+	char **map2;
 	
-	argc = 1;
-	param.fd = open(argv[1], O_RDONLY);
-	while ((end = get_next_line(param.fd, &param.line)) >= 0)
+	
+	param->fd = open(mapa, O_RDONLY);
+	while ((end = get_next_line(param->fd, &param->line)) >= 0)
 	{
-		ft_handle(&param);
+		ft_handle(param);
 		if (end == 0)
 		{
-			param.finalmap = ft_split(param.map, '\n');
-			final_checkmap(&param);
-			if (check_map(param.position_x, param.position_y, &param) == 1)
+			param->finalmap = ft_split(param->map, '\n');
+			map2 = copy_matrix(param->column, param->finalmap);
+			final_checkmap(param);
+			if (check_map(map2, param->position_x, param->position_y, param->column, param->row) == 1)
 				ft_throw_error("Map is not closed");
-			else
-				printf("\nFunciona");
 
-//			printf("Filas: %d", param.row);
+//		printf("Filas: %d", param.row);
 //		printf("Mapa:\n%s", param.map);
-/*while (param.finalmap[y] != NULL)
-{
-	printf("%s\n", param.finalmap[y]);
-	y++;
-}*/
+	while (param->finalmap[y] != NULL)
+	{
+		printf("%s\n", param->finalmap[y]);
+		y++;
+	}
+		y = 0;
+
 			break;
 		}
 	}

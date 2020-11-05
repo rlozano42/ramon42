@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:20:20 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/02 12:14:40 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/05 12:15:42 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,39 @@ void    ft_checkrouth(t_map *param)
         ft_throw_error("ERROR: Check routh");
 }
 
+void	ft_orientation(t_map *param)
+{
+	if (*param->line == 'N')
+	{
+		param->dirX = -1;
+		param->dirY = 0;
+		param->planeX = 0;
+		param->planeY = 0.66;
+	}
+	if (*param->line == 'S')
+	{
+		param->dirX = 1;
+		param->dirY = 0;
+		param->planeX = 0;
+		param->planeY = -0.66;
+	}
+	if (*param->line == 'W')
+	{
+		param->dirX = 0;
+		param->dirY = -1;
+		param->planeX = -0.66;
+		param->planeY = 0;
+	}
+	if (*param->line == 'E')
+	{
+		param->dirX = 0;
+		param->dirY = 1;
+		param->planeX = 0.66; 
+		param->planeY =  0;
+	}
+	
+}
+
 void ft_checkcolumn(t_map *param)
 {
 	int		len;
@@ -66,37 +99,39 @@ void ft_checkcolumn(t_map *param)
 	{
 		if (*param->line == 'N' || *param->line == 'S' || *param->line == 'E' || *param->line == 'W')
 		{
-			param->position_x = param->row;
+			param->position_x = param->column;
 			param->position_y = x;
+			ft_orientation(param);
 //			printf("Posición %d, %d\n", param->position_y, param->position_x);
 		}
 		x++;
 		len++;
 		param->line++;
 	}
-	if (len > param->column)
-		param->column = len;
-//	printf("Columnas %d\n", param->column);
+	if (len > param->row)
+		param->row = len;
+//	printf("Columnas %d\n", param->row);
 }
 
-int				check_map(int row, int col, t_map *param)
+int				check_map(char **map, int row, int col, int Maxrow, int Maxcol)
 {
 	int			ok;
 	char		c;
+	int y = 0;
 	
-	if (row < 0 || col < 0 || row >= param->row
-	|| col >= param->column )
+	if (row < 0 || col < 0 || row >= Maxrow
+	|| col >= Maxcol )
 		return (1);
-	c = param->finalmap[row][col];
+	c = map[row][col];
 	if (c == ' ')
 		return (1);
 	else if (c == '3' || c == '1')
 		return (0);
-	param->finalmap[row][col] = '3';
-	ok = check_map(row, col - 1, param);
-	ok = ok == 0 ? check_map(row, col + 1, param) : ok;
-	ok = ok == 0 ? check_map(row - 1, col, param) : ok;
-	ok = ok == 0 ? check_map(row + 1, col, param) : ok;
+	map[row][col] = '3';
+	ok = check_map(map, row, col - 1, Maxrow, Maxcol);
+	ok = ok == 0 ? check_map(map, row, col + 1, Maxrow, Maxcol) : ok;
+	ok = ok == 0 ? check_map(map, row - 1, col, Maxrow, Maxcol) : ok;
+	ok = ok == 0 ? check_map(map, row + 1, col,  Maxrow, Maxcol) : ok;
 	return (ok);
 }
 
@@ -109,7 +144,7 @@ void		final_checkmap(t_map *param)
 	while (param->finalmap[y] != NULL)
 	{
 		len = ft_strlen_gnl(param->finalmap[y]);
-		while (len < param->column)
+		while (len < param->row)
 		{
 			param->finalmap[y] = ft_strjoin_gnl(param->finalmap[y], " ");
 			len++;

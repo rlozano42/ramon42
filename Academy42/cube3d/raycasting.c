@@ -6,194 +6,137 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:31:59 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/03 13:16:47 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/05 11:30:40 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include <math.h>
-#define mapWidth 24 
-#define mapHeight 24 
-#define screenWidth 640 
-#define screenHeight 480 
 
-int worldMap [mapWidth] [mapHeight] = 
-{ 
-  {1,1,1,1,1,1,1,1,1,1,1,1 , 1,1,1,1,1,1,1,1,1,1,1,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,2,2,2,2,2,0 , 0,0,0,3,0,3,0,3,0,0,0,1}, 
-  {1,0,0,0,0,0,2,0,0,0,2,0 , 0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,2,0,0,0,2,0 , 0,0,0,3,0,0,0,3,0,0,0,1}, 
-  {1,0,0,0,0,0,2,0,0,0,2,0 , 0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,2,2,0,2,2,0 , 0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1} 
-} ;
-
-void    ft_initiate(t_cam *param)
+void init_raycasting(t_map *param)
 {
-    param->izq = 0;
-    param->drch = 0;
-    param->up = 0;
-    param->down = 0;
-    param->j = 0;
-    param->i = 0;
-}
+  t_cam mlx;
+  t_ray f;
+  ft_bzero(&mlx, sizeof(t_cam));
+  ft_bzero(&f, sizeof(t_ray));
+  
+//  f.posX = 22;
+//  f.posY= 12;  //x and y start position
+//  f.w = 640;
+//  f.h = 480;
+// f.dirX= -1;
+//  f.dirY = 0; //initial direction vector
+//  f.planeX = 0;
+//  f.laneY = 0.66; //the 2d raycaster version of camera plane
+  f.time = 0; //time of current frame
+  f.oldTime = 0; //time of previous frame 
+  f.side = 0;
+  
+  mlx.mlx_ptr = mlx_init();
+  mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, param->resolution_x, param->resolution_y, "mlx 42");
+  mlx.img = mlx_new_image(mlx.mlx_ptr, param->resolution_x, param->resolution_y);
+  mlx.addr = (int *)mlx_get_data_addr(mlx.img, &mlx.bits_per_pixel, &mlx.line_length,&mlx.endian);
 
-int main (int argc, char **argv) 
-{
-  t_cam param;
-  ft_initiate(&param);
-  double posX = 22, posY = 12;  //x and y start position
-  double dirX = -1, dirY = 0; //initial direction vector
-  double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
-
-  double time = 0; //time of current frame
-  double oldTime = 0; //time of previous frame 
-  int w = 640;
-  int h = 480;
-  int  side = 0;
-  unsigned int color = 0xffff00;
-  param.mlx_ptr = mlx_init();
-  param.win_ptr = mlx_new_window(param.mlx_ptr, 800, 800, "mlx 42");
-  param.img = mlx_new_image(param.mlx_ptr, 800, 800);
-  param.addr = (int *)mlx_get_data_addr(param.img, &param.bits_per_pixel, &param.line_length,&param.endian);
 
   while(1)
   {
     int x = 0;
-    while(x < w)
+    while(x < param->resolution_x)
     {
+      int j = 0;
+      
       //calculate ray position and direction
-      double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-      double rayDirX = dirX + planeX * cameraX;
-      double rayDirY = dirY + planeY * cameraX;
+      f.cameraX = 2 * x / (double)param->resolution_x - 1; //x-coordinate in camera space
+      f.rayDirX = param->dirX + param->planeX * f.cameraX;
+      f.rayDirY = param->dirY + param->planeY * f.cameraX;
       
       //which box of the map we're in
-      int mapX = (int)posX;
-      int mapY = (int)posY;
-
-      //length of ray from current position to next x or y-side
-      double sideDistX;
-      double sideDistY;
+      f.mapX = (int)param->position_x;
+      f.mapY = (int)param->position_y;
 
        //length of ray from one x or y-side to next x or y-side
-      double deltaDistX = fabs(1 / rayDirX);
-      double deltaDistY = fabs(1 / rayDirY);
-      double perpWallDist;
-
-      //what direction to step in x or y-direction (either +1 or -1)
-      int stepX;
-      int stepY;
+      f.deltaDistX = fabs(1 / f.rayDirX);
+      f.deltaDistY = fabs(1 / f.rayDirY);
 
       int hit = 0; //was there a wall hit?
-      int side; //was a NS or a EW wall hit?
       
       //calculate step and initial sideDist
-      if (rayDirX < 0)
+      if (f.rayDirX < 0)
       {
-        stepX = -1;
-        sideDistX = (posX - mapX) * deltaDistX;
+        f.stepX = -1;
+        f.sideDistX = (param->position_x- f.mapX) * f.deltaDistX;
       }
       else
       {
-        stepX = 1;
-        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+        f.stepX = 1;
+        f.sideDistX = (f.mapX + 1.0 - param->position_x) * f.deltaDistX;
       }
-      if (rayDirY < 0)
+      if (f.rayDirY < 0)
       {
-        stepY = -1;
-        sideDistY = (posY - mapY) * deltaDistY;
+        f.stepY = -1;
+        f.sideDistY = (param->position_y - f.mapY) * f.deltaDistY;
       }
       else
       {
-        stepY = 1;
-        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+        f.stepY = 1;
+        f.sideDistY = (f.mapY + 1.0 - param->position_y) * f.deltaDistY;
       }
       
       //perform DDA
       while (hit == 0)
       {
         //jump to next map square, OR in x-direction, OR in y-direction
-        if (sideDistX < sideDistY)
+        if (f.sideDistX < f.sideDistY)
         {
-          sideDistX += deltaDistX;
-          mapX += stepX;
-          side = 0;
+          f.sideDistX += f.deltaDistX;
+          f.mapX += f.stepX;
+          f.side = 0;
         }
         else
         {
-          sideDistY += deltaDistY;
-          mapY += stepY;
-          side = 1;
+          f.sideDistY += f.deltaDistY;
+          f.mapY += f.stepY;
+          f.side = 1;
         }
         //Check if ray has hit a wall
-        if (worldMap[mapX][mapY] > 0) hit = 1;
+        if (param->finalmap[f.mapX][f.mapY] > 0)
+            hit = 1;
       }
         //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-      if (side == 0)
-      {
-        perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
-      }
+      if (f.side == 0)
+        f.perpWallDist = (f.mapX - param->position_x + (1 - f.stepX) / 2) / f.rayDirX;
       else
-      {
-        perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
-      }
+        f.perpWallDist = (f.mapY - param->position_y + (1 - f.stepY) / 2) / f.rayDirY;
       
       //Calculate height of line to draw on screen
-      int lineHeight = (int)h / perpWallDist;
+      f.lineHeight = (int)param->resolution_y / f.perpWallDist;
 
       //calculate lowest and highest pixel to fill in current stripe
-      int drawStart = -lineHeight / 2 + h / 2;
-      if
-        (drawStart < 0)drawStart = 0;
-      int drawEnd = lineHeight / 2 + h / 2;
-      if
-        (drawEnd >= h)drawEnd = h - 1;
-           //choose wall color
+      f.drawStart = -f.lineHeight / 2 + param->resolution_y / 2;
+      if(f.drawStart < 0)
+        f.drawStart = 0;
+      f.drawEnd = f.lineHeight / 2 + param->resolution_y / 2;
+      if(f.drawEnd >= param->resolution_y)
+        f.drawEnd = param->resolution_y - 1;
+      //choose wall color
 
-      if (worldMap[mapX][mapY] == 1)
-      {
-        (color = 0xff0000);
-        break;
-      }
-      else if (worldMap[mapX][mapY] == 2)
-      {
-        (color = 0x08000);
-        break;
-      }
-      else if (worldMap[mapX][mapY] == 3)
-      {
-        (color = 0x000ff);
-        break;
-      }
-      else if (worldMap[mapX][mapY] == 4 )
-      {
-        (color = 0xffffff);
-        break;
-      }
+      if (param->finalmap[f.mapX][f.mapY] == 1)
+        (f.color = 0xfffffff);
       //give x and y sides different brightness
-      if (side == 1) {color  = color / 2;}
-
+      if (f.side == 1)
+        f.color  = f.color / 2;
+      
       //draw the pixels of the stripe as a vertical line
-      mlx_put_image_to_window(param.mlx_ptr, param.win_ptr, param.img, 0, 0);
+      while (j <= f.drawStart)
+        mlx.addr[j++ * param->resolution_x + x]  =  0x000000;
+      while (j < f.drawEnd)
+        mlx.addr[j++ * param->resolution_x + x]  =  f.color;
+      while (j < param->resolution_y)
+        mlx.addr[j++ * param->resolution_x + x]  =  0x763c28;
+
+      mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img, 0, 0);
       x++;
     }
+    mlx_loop(mlx.mlx_ptr);
   }
-  mlx_loop(param.mlx_ptr);
 }
