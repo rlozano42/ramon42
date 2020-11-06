@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:31:59 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/06 13:04:39 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 13:37:31 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,38 +59,45 @@ int  ft_exit_game(t_cam *mlx)
 }
 
 
-/*void	ft_orientation(t_ray *f)
+void	ft_orientation(t_map *param)
 {
-	if (f->whois == 'N')
+	if (param->whois == 'N')
 	{
-		f->dirX = -1;
-		f->dirY = 0;
-		f->planeX = 0;
-		f->planeY = 0.66;
+		param->dirX = -1;
+		param->dirY = 0;
+		param->planeX = 0;
+		param->planeY = 0.66;
 	}
-	if (f->whois == 'S')
+	if (param->whois == 'S')
 	{
-		f->dirX = 1;
-		f->dirY = 0;
-		f->planeX = 0;
-		f->planeY = -0.66;
+		param->dirX = 1;
+		param->dirY = 0;
+		param->planeX = 0;
+		param->planeY = -0.66;
 	}
-	if (f->whois == 'W')
+	if (param->whois == 'W')
 	{
-		f->dirX = 0;
-		f->dirY = -1;
-		f->planeX = -0.66;
-		f->planeY = 0;
+		param->dirX = 0;
+		param->dirY = -1;
+		param->planeX = -0.66;
+		param->planeY = 0;
 	}
-	if (f->whois == 'E')
+	if (param->whois == 'E')
 	{
-		f->dirX = 0;
-		f->dirY = 1;
-		f->planeX = 0.66; 
-		f->planeY =  0;
+		param->dirX = 0;
+		param->dirY = 1;
+		param->planeX = 0.66; 
+		param->planeY =  0;
 	}
 	
-}*/
+}
+void      ft_initstruct(t_map *param)
+{
+  param->dirX = 0;
+  param->dirY = 0;
+  param->planeX = 0;
+  param->planeY = 0;
+}
 
 void init_raycasting(t_map *param)
 {
@@ -98,26 +105,14 @@ void init_raycasting(t_map *param)
   t_ray f;
   ft_bzero(&mlx, sizeof(t_cam));
   ft_bzero(&f, sizeof(t_ray));
-  
-//  f.posX = 22;
-//  f.posY= 12;  //x and y start position
-//  f.w = 640;
-//  f.h = 480;
-// f.dirX= -1;
-//  f.dirY = 0; //initial direction vector
-//  f.planeX = 0;
-//  f.laneY = 0.66; //the 2d raycaster version of camera plane
-//  f.time = 0; //time of current frame
-//  f.oldTime = 0; //time of previous frame 
-//  f.side = 0;
-//  param->whois = f.whois;
+
   
   mlx.mlx_ptr = mlx_init();
   mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, param->resolution_x, param->resolution_y, "Cub3d");
   mlx.img = mlx_new_image(mlx.mlx_ptr, param->resolution_x, param->resolution_y);
   mlx.addr = (int *)mlx_get_data_addr(mlx.img, &mlx.bits_per_pixel, &mlx.line_length,&mlx.endian);
 
-  
+  ft_orientation(param);
   while(1)
   {
     mlx_destroy_image(mlx.mlx_ptr, mlx.img);
@@ -128,11 +123,7 @@ void init_raycasting(t_map *param)
     while(x < param->resolution_x)
     {
       ft_bzero(&f, sizeof(t_ray));
-//      ft_orientation(&f);
-  		param->dirX = 0;
-		  param->dirY = 1;
-		  param->planeX = 0.66; 
-		  param->planeY =  0;
+      
       j = 0;
       
       //calculate ray position and direction

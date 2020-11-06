@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/06 13:02:53 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 13:13:31 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_ray
 	int				esc;
 	int				rot_right;
 	int				rot_left;
-	char			whois;
 }				t_ray;
 
 typedef struct s_map
@@ -141,5 +140,6 @@ void 			init_raycasting(t_map *param);
 int  			ft_key_release(int keycode, t_ray *f);
 int 			ft_key_press(int keycode, t_ray *f);
 int  			ft_exit_game(t_cam *mlx);
+void			ft_orientation(t_map *param);
 
 #endif
