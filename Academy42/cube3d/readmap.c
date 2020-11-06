@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 20:08:55 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/06 11:59:25 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 14:21:25 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_handle(t_map *param)
 
 		x = 0;
 		map2 = ft_strdup(param->line);
-		while (x < 25)
+		while (x < 30)
 		{
 			if (map2[x] == 'N' || map2[x] == 'S' || map2[x] == 'E' || map2[x] == 'W')
 			{
@@ -78,7 +78,7 @@ void	ft_handlesprite(t_map *param)
 		param->sprite = param->aux[1];
 	}
 	else
-		ft_throw_error("ERROR: check sprite");
+		ft_throw_error("ERROR check sprite");
 }
 
 void	ft_handlefloor(t_map *param)

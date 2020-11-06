@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:20:20 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/06 11:46:49 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 14:21:02 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void ft_checkcolumn(t_map *param)
 			param->position_x = param->column;
 			param->position_y = x;
 			param->whois = *param->line;
-	//		printf("Whois: %c\n", param->whois);
+//			printf("Whois: %c\n", param->whois);
 		}
 		x++;
 		len++;

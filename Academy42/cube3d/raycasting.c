@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:31:59 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/06 13:37:31 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 14:21:50 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,40 +63,33 @@ void	ft_orientation(t_map *param)
 {
 	if (param->whois == 'N')
 	{
-		param->dirX = -1;
-		param->dirY = 0;
-		param->planeX = 0;
+		param->dirX = -1.0;
+		param->dirY = 0.0;
+		param->planeX = 0.0;
 		param->planeY = 0.66;
 	}
 	if (param->whois == 'S')
 	{
-		param->dirX = 1;
-		param->dirY = 0;
-		param->planeX = 0;
+		param->dirX = 1.0;
+		param->dirY = 0.0;
+		param->planeX = 0.0;
 		param->planeY = -0.66;
 	}
 	if (param->whois == 'W')
 	{
-		param->dirX = 0;
-		param->dirY = -1;
+		param->dirX = 0.0;
+		param->dirY = -1.0;
 		param->planeX = -0.66;
-		param->planeY = 0;
+		param->planeY = 0.0;
 	}
 	if (param->whois == 'E')
 	{
-		param->dirX = 0;
-		param->dirY = 1;
+		param->dirX = 0.0;
+		param->dirY = 1.0;
 		param->planeX = 0.66; 
-		param->planeY =  0;
+		param->planeY =  0.0;
 	}
 	
-}
-void      ft_initstruct(t_map *param)
-{
-  param->dirX = 0;
-  param->dirY = 0;
-  param->planeX = 0;
-  param->planeY = 0;
 }
 
 void init_raycasting(t_map *param)
@@ -222,6 +215,63 @@ void init_raycasting(t_map *param)
         *(mlx.addr + j * param->resolution_x + x)   =  60000;
         j++;
       }
+      //timing for input and FPS counter
+      f.oldTime = f.time;
+//      f.time = getTicks();
+      f.frameTime = (f.time - f.oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+ 
+     
+      //move forward if no wall in front of you
+	    if (f.up)
+	    {
+            if(param->finalmap[(int)(param->position_x + param->dirX * moveSpeed)][(int)param->position_y ] == '0') param->position_x += param->dirX * moveSpeed;
+            if(param->finalmap[(int)(param->position_x)][(int)(param->position_y  + param->dirY * moveSpeed)] == '0') param->position_y += param->dirY * moveSpeed;
+	    }
+	    if (f.down)
+	    {
+            if(param->finalmap[(int)(param->position_x - param->dirX * moveSpeed)][(int)param->position_y] == '0') param->position_x -= param->dirX * moveSpeed;
+            if(param->finalmap[(int)(param->position_x)][(int)(param->position_y - param->dirY * moveSpeed)] == '0') param->position_y  -= param->dirY * moveSpeed;
+	    }
+	    if (f.left)
+	    {
+          if (param->finalmap[(int)param->position_x][(int)(param->position_y + param->dirX * moveSpeed)] == '0') param->position_y += param->dirX * moveSpeed;
+	        if (param->finalmap[(int)(param->position_x - param->dirY * moveSpeed)][(int)param->position_y] == '0') param->position_x -= param->dirY * moveSpeed;
+	    }
+	    if (f.right)
+	    {
+          if(param->finalmap[(int)param->position_x][(int)(param->position_y - param->dirX * moveSpeed)] == '0') param->position_y -= param->dirX * moveSpeed;
+	        if (param->finalmap[(int)(param->position_x + param->dirY * moveSpeed)][(int)param->position_y] == '0') param->position_x += param->dirY * moveSpeed;
+	    }
+      if (f.rot_left)
+      {
+        double old_dir_x;
+		    double old_plane_x;
+    
+		    old_dir_x = param->dirX;
+		    param->dirX = param->dirX * cos(rotSpeed) - param->dirY * sin(rotSpeed);
+		    param->dirY = old_dir_x * sin(rotSpeed) + param->dirY * cos(rotSpeed);
+		    old_plane_x = param->planeX;
+		    param->planeX = param->planeX * cos(rotSpeed) - param->planeY * sin(rotSpeed);
+		    param->planeY = old_plane_x * sin(rotSpeed) + param->planeY * cos(rotSpeed);
+      }
+      if (f.rot_right)
+      {
+        double old_dir_x;
+		    double old_plane_x;
+    
+		    old_dir_x = param->dirX;
+		    param->dirX = param->dirX * cos(-rotSpeed) - param->dirY * sin(-rotSpeed);
+		    param->dirY = old_dir_x * sin(-rotSpeed) + param->dirY * cos(-rotSpeed);
+		    old_plane_x = param->planeX;
+		    param->planeX = param->planeX * cos(-rotSpeed) - param->planeY * sin(-rotSpeed);
+		    param->planeY = old_plane_x * sin(-rotSpeed) + param->planeY * cos(-rotSpeed);
+      }
+      if (f.esc)
+        ft_exit_game(&mlx);
+
+
+
+      
       
       x++;
     }
