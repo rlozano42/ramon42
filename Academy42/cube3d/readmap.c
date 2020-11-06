@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 20:08:55 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/05 12:16:09 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 11:59:25 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,11 @@ void	ft_readmap(char *mapa, t_map *param)
 
 //		printf("Filas: %d", param.row);
 //		printf("Mapa:\n%s", param.map);
-	while (param->finalmap[y] != NULL)
+/*	while (param->finalmap[y] != NULL)
 	{
 		printf("%s\n", param->finalmap[y]);
 		y++;
-	}
-		y = 0;
+	}*/
 
 			break;
 		}

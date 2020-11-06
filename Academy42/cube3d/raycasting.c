@@ -6,12 +6,91 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:31:59 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/05 11:30:40 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 13:04:39 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include <math.h>
+
+int ft_key_press(int keycode, t_ray *f)
+{
+	if (keycode == K_W)
+		f->up = 1;
+	if (keycode == K_S)
+		f->down = 1;
+	if (keycode == K_AR_R)
+		f->rot_right = 1;
+	if (keycode == K_AR_L)
+		f->rot_left = 1;
+	if (keycode == K_A)
+		f->left = 1;
+	if (keycode == K_D)
+		f->right = 1;
+	if (keycode == K_ESC)
+		f->esc = 1;
+	return (0);
+}
+
+int ft_key_release(int keycode, t_ray *f)
+{
+	if (keycode == K_W)
+		f->up = 0;
+	if (keycode == K_S)
+		f->down = 0;
+	if (keycode == K_AR_R)
+		f->rot_right = 0;
+	if (keycode == K_AR_L)
+		f->rot_left = 0;
+	if (f->keycode == K_A)
+		f->left = 0;
+	if (keycode == K_D)
+		f->right = 0;
+	if (keycode == K_ESC)
+		f->esc = 0;
+	return (0);
+}
+
+int  ft_exit_game(t_cam *mlx)
+{
+  mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	exit(EXIT_SUCCESS);
+  return(0);
+}
+
+
+/*void	ft_orientation(t_ray *f)
+{
+	if (f->whois == 'N')
+	{
+		f->dirX = -1;
+		f->dirY = 0;
+		f->planeX = 0;
+		f->planeY = 0.66;
+	}
+	if (f->whois == 'S')
+	{
+		f->dirX = 1;
+		f->dirY = 0;
+		f->planeX = 0;
+		f->planeY = -0.66;
+	}
+	if (f->whois == 'W')
+	{
+		f->dirX = 0;
+		f->dirY = -1;
+		f->planeX = -0.66;
+		f->planeY = 0;
+	}
+	if (f->whois == 'E')
+	{
+		f->dirX = 0;
+		f->dirY = 1;
+		f->planeX = 0.66; 
+		f->planeY =  0;
+	}
+	
+}*/
 
 void init_raycasting(t_map *param)
 {
@@ -28,22 +107,33 @@ void init_raycasting(t_map *param)
 //  f.dirY = 0; //initial direction vector
 //  f.planeX = 0;
 //  f.laneY = 0.66; //the 2d raycaster version of camera plane
-  f.time = 0; //time of current frame
-  f.oldTime = 0; //time of previous frame 
-  f.side = 0;
+//  f.time = 0; //time of current frame
+//  f.oldTime = 0; //time of previous frame 
+//  f.side = 0;
+//  param->whois = f.whois;
   
   mlx.mlx_ptr = mlx_init();
-  mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, param->resolution_x, param->resolution_y, "mlx 42");
+  mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, param->resolution_x, param->resolution_y, "Cub3d");
   mlx.img = mlx_new_image(mlx.mlx_ptr, param->resolution_x, param->resolution_y);
   mlx.addr = (int *)mlx_get_data_addr(mlx.img, &mlx.bits_per_pixel, &mlx.line_length,&mlx.endian);
 
-
+  
   while(1)
   {
+    mlx_destroy_image(mlx.mlx_ptr, mlx.img);
+    mlx.img = mlx_new_image(mlx.mlx_ptr, param->resolution_x, param->resolution_y);
+    mlx.addr = (int *)mlx_get_data_addr(mlx.img, &mlx.bits_per_pixel, &mlx.line_length,&mlx.endian);
+    int j;
     int x = 0;
     while(x < param->resolution_x)
     {
-      int j = 0;
+      ft_bzero(&f, sizeof(t_ray));
+//      ft_orientation(&f);
+  		param->dirX = 0;
+		  param->dirY = 1;
+		  param->planeX = 0.66; 
+		  param->planeY =  0;
+      j = 0;
       
       //calculate ray position and direction
       f.cameraX = 2 * x / (double)param->resolution_x - 1; //x-coordinate in camera space
@@ -51,14 +141,12 @@ void init_raycasting(t_map *param)
       f.rayDirY = param->dirY + param->planeY * f.cameraX;
       
       //which box of the map we're in
-      f.mapX = (int)param->position_x;
-      f.mapY = (int)param->position_y;
+      f.mapX = param->position_x;
+      f.mapY = param->position_y;
 
        //length of ray from one x or y-side to next x or y-side
       f.deltaDistX = fabs(1 / f.rayDirX);
       f.deltaDistY = fabs(1 / f.rayDirY);
-
-      int hit = 0; //was there a wall hit?
       
       //calculate step and initial sideDist
       if (f.rayDirX < 0)
@@ -82,8 +170,8 @@ void init_raycasting(t_map *param)
         f.sideDistY = (f.mapY + 1.0 - param->position_y) * f.deltaDistY;
       }
       
-      //perform DDA
-      while (hit == 0)
+      //perform DDA igual que el miguel hasta otro 10
+      while (f.hit == 0)
       {
         //jump to next map square, OR in x-direction, OR in y-direction
         if (f.sideDistX < f.sideDistY)
@@ -99,8 +187,8 @@ void init_raycasting(t_map *param)
           f.side = 1;
         }
         //Check if ray has hit a wall
-        if (param->finalmap[f.mapX][f.mapY] > 0)
-            hit = 1;
+        if (param->finalmap[f.mapX][f.mapY] == '1')
+            f.hit = 1;
       }
         //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
       if (f.side == 0)
@@ -110,6 +198,7 @@ void init_raycasting(t_map *param)
       
       //Calculate height of line to draw on screen
       f.lineHeight = (int)param->resolution_y / f.perpWallDist;
+      // 10 igual
 
       //calculate lowest and highest pixel to fill in current stripe
       f.drawStart = -f.lineHeight / 2 + param->resolution_y / 2;
@@ -120,23 +209,35 @@ void init_raycasting(t_map *param)
         f.drawEnd = param->resolution_y - 1;
       //choose wall color
 
-      if (param->finalmap[f.mapX][f.mapY] == 1)
+      if (param->finalmap[f.mapX][f.mapY] == '1')
         (f.color = 0xfffffff);
       //give x and y sides different brightness
       if (f.side == 1)
         f.color  = f.color / 2;
       
       //draw the pixels of the stripe as a vertical line
-      while (j <= f.drawStart)
-        mlx.addr[j++ * param->resolution_x + x]  =  0x000000;
+      while (j < f.drawStart)
+      {
+        *(mlx.addr + j * param->resolution_x + x)  =  255;
+        j++;
+      }
       while (j < f.drawEnd)
-        mlx.addr[j++ * param->resolution_x + x]  =  f.color;
+      {
+        *(mlx.addr + j * param->resolution_x + x)   =  3;
+        j++;
+      }
       while (j < param->resolution_y)
-        mlx.addr[j++ * param->resolution_x + x]  =  0x763c28;
-
-      mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img, 0, 0);
+      {
+        *(mlx.addr + j * param->resolution_x + x)   =  60000;
+        j++;
+      }
+      
       x++;
     }
+    mlx_hook(mlx.win_ptr, 2, 1, ft_key_press, &f);
+	  mlx_hook(mlx.win_ptr, 3, 2, ft_key_release, &f);
+	  mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_exit_game, &mlx);
+    mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img, 0, 0);
     mlx_loop(mlx.mlx_ptr);
   }
 }

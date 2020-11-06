@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/05 11:02:22 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 13:02:53 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+# include "./includes/key_macos.h"
+# include <time.h>
 
 #define MAX_RESOLUTIONX 1920
 #define MAX_RESOLUTIONY 1080
 #define MIN_RESOLUTIONX 400
 #define MIN_RESOLUTIONY 400
+
+# define moveSpeed	0.08
+# define rotSpeed	0.05
+
 
 typedef struct	s_cam{
 	int			izq;
@@ -63,34 +69,48 @@ typedef struct s_ray
 	int 			lineHeight;
 	int 			drawStart;
 	int 			drawEnd;
+	int 			hit; //was there a wall hit?
+	double 			frameTime;
+	int				keycode;
+	double 			oldPlaneX;
+	double			oldDirX;
+	int				up;
+	int				down;
+	int				left;
+	int				right;
+	int				esc;
+	int				rot_right;
+	int				rot_left;
+	char			whois;
 }				t_ray;
 
 typedef struct s_map
 {
-	int		fd;
-	char	*line;
-	int		resolution_x;
-	int		resolution_y;
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	char	*sprite;
-	char	**aux;
-	int 	floor[3];
-	int		ceiling[3];
-	int		position_x;
-	int		position_y;
-	int		len;
-	int		column;
-	int		flag;
-	int		row;
-	char	*map;
-	char	**finalmap;
-	double 			dirX;
-	double			dirY; 
-  	double 			planeX;
-	double			planeY; 
+	int			fd;
+	char		*line;
+	int			resolution_x;
+	int			resolution_y;
+	char		*north;
+	char		*south;
+	char		*west;
+	char		*east;
+	char		*sprite;
+	char		**aux;
+	int 		floor[3];
+	int			ceiling[3];
+	int			position_x;
+	int			position_y;
+	int			len;
+	int			column;
+	int			flag;
+	int			row;
+	char		*map;
+	char		**finalmap;
+	char		whois;
+	double 		dirX;
+	double		dirY; 
+  	double 		planeX;
+	double		planeY;
 }				t_map;
 
 
@@ -118,5 +138,8 @@ int				check_map(char **map, int row, int col,int Maxrow,int Maxcol);
 void			final_checkmap(t_map *param);
 void			ft_readmap(char *mapa, t_map *param);
 void 			init_raycasting(t_map *param);
+int  			ft_key_release(int keycode, t_ray *f);
+int 			ft_key_press(int keycode, t_ray *f);
+int  			ft_exit_game(t_cam *mlx);
 
 #endif

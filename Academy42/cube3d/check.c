@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:20:20 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/05 12:15:42 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/06 11:46:49 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,39 +55,6 @@ void    ft_checkrouth(t_map *param)
         ft_throw_error("ERROR: Check routh");
 }
 
-void	ft_orientation(t_map *param)
-{
-	if (*param->line == 'N')
-	{
-		param->dirX = -1;
-		param->dirY = 0;
-		param->planeX = 0;
-		param->planeY = 0.66;
-	}
-	if (*param->line == 'S')
-	{
-		param->dirX = 1;
-		param->dirY = 0;
-		param->planeX = 0;
-		param->planeY = -0.66;
-	}
-	if (*param->line == 'W')
-	{
-		param->dirX = 0;
-		param->dirY = -1;
-		param->planeX = -0.66;
-		param->planeY = 0;
-	}
-	if (*param->line == 'E')
-	{
-		param->dirX = 0;
-		param->dirY = 1;
-		param->planeX = 0.66; 
-		param->planeY =  0;
-	}
-	
-}
-
 void ft_checkcolumn(t_map *param)
 {
 	int		len;
@@ -101,8 +68,8 @@ void ft_checkcolumn(t_map *param)
 		{
 			param->position_x = param->column;
 			param->position_y = x;
-			ft_orientation(param);
-//			printf("Posición %d, %d\n", param->position_y, param->position_x);
+			param->whois = *param->line;
+	//		printf("Whois: %c\n", param->whois);
 		}
 		x++;
 		len++;
