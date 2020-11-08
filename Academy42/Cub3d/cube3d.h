@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/06 13:13:31 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/08 13:29:48 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <errno.h>
 # include "./includes/key_macos.h"
 # include <time.h>
+#include <math.h>
 
 #define MAX_RESOLUTIONX 1920
 #define MAX_RESOLUTIONY 1080
@@ -33,10 +34,6 @@
 
 
 typedef struct	s_cam{
-	int			izq;
-    int         drch;
-	int			up;
-	int			down;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img;
@@ -69,7 +66,6 @@ typedef struct s_ray
 	int 			lineHeight;
 	int 			drawStart;
 	int 			drawEnd;
-	int 			hit; //was there a wall hit?
 	double 			frameTime;
 	int				keycode;
 	double 			oldPlaneX;
@@ -87,8 +83,8 @@ typedef struct s_map
 {
 	int			fd;
 	char		*line;
-	int			resolution_x;
-	int			resolution_y;
+	int			Screenwidth;
+	int			Screenheight;
 	char		*north;
 	char		*south;
 	char		*west;
@@ -112,34 +108,39 @@ typedef struct s_map
 	double		planeY;
 }				t_map;
 
+typedef struct s_gen
+{
+	t_cam 		mlx;
+  	t_ray 		f;
+	t_map		param;
+}				t_gen;
 
-void 			ft_initiate(t_cam *param);
-int				down(int keycode, t_cam *param);
-int				release(int keycode, t_cam *param);
-int				test2(t_cam *param);
-void			ft_handleresolution(t_map *param);
-int				is_digit(char c);
-int				is_space(char c);
-void			ft_handleceiling(t_map *param);
-void			ft_handlefloor(t_map *param);
-void			ft_handlesprite(t_map *param);
-void			ft_handleeast(t_map *param);
-void			ft_handlewest(t_map *param);
-void			ft_handlesouth(t_map *param);
-void			ft_handlenorth(t_map *param);
-void			ft_handleresolution(t_map *param);
-void			ft_throw_error(const char  *str);
-void			check_updown(t_map *param, char str);
-void			ft_check(t_map *param);
-void		    ft_checkrouth(t_map *param);
-void			ft_checkcolumn(t_map *param);
-int				check_map(char **map, int row, int col,int Maxrow,int Maxcol);
-void			final_checkmap(t_map *param);
-void			ft_readmap(char *mapa, t_map *param);
-void 			init_raycasting(t_map *param);
-int  			ft_key_release(int keycode, t_ray *f);
-int 			ft_key_press(int keycode, t_ray *f);
+void			final_checkmap(t_gen *g);
+void			ft_readmap(char *mapa, t_gen *g);
+void 			init_raycasting(t_gen *g);
+int  			ft_key_release(int keycode, t_gen *g);
+int 			ft_key_press(int keycode, t_gen *g);
 int  			ft_exit_game(t_cam *mlx);
-void			ft_orientation(t_map *param);
+void			ft_handleceiling(t_gen *g);
+void			ft_handlefloor(t_gen *g);
+void			ft_handlesprite(t_gen *g);
+void			ft_handleeast(t_gen *g);
+void			ft_handlewest(t_gen *g);
+void			ft_handlesouth(t_gen *g);
+void			ft_handlenorth(t_gen *g);
+void			ft_handleresolution(t_gen *g);
+void			ft_throw_error(const char  *str);
+void			check_updown(t_gen *g, char str);
+void			ft_check(t_gen *g);
+void		    ft_checkrouth(t_gen *g);
+void			ft_checkcolumn(t_gen *g);
+void			ft_orientation(t_gen *g);
+void			ft_handleresolution(t_gen *g);
+void			new_window(t_gen *g);
+void  			ft_movement(t_gen *g);
+int 			ft_key_press(int keycode, t_gen *g);
+int 			ft_key_release(int keycode, t_gen *g);
+int				is_space(char c);
+int				check_map(char **map, int row, int col,int Maxrow,int Maxcol);
 
 #endif

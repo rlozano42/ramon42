@@ -6,17 +6,17 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/11/05 09:56:00 by rlozano          ###   ########.fr        #
+#    Updated: 2020/11/07 12:46:17 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3d
 
-SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c 
+SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c raycasting.c readmap.c Key-orientation.c window.c raycasting1.c
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 
-SRCCUB =  raycasting.c readmap.c cub3d.c 
+SRCCUB =   cub3d.c 
 
 SRCMLX = includes/minilibx
 
@@ -29,7 +29,7 @@ all: $(NAME)
 $(NAME):
 	@make -C $(SRCLIBFT)
 	@make -C $(SRCMLX)
-	${CC} ${SRC}  ${SRCCUB}  includes/libft/libft.a  ${SRCGNL} includes/minilibx/libmlx.a  -framework OpenGL -framework AppKit 
+	${CC} ${SRC}  ${SRCCUB} -fsanitize=address includes/libft/libft.a  ${SRCGNL} includes/minilibx/libmlx.a  -framework OpenGL -framework AppKit 
 	
 bonus:
 	@make -C $(SRCLIBFT)

@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:20:20 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/06 14:21:02 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/08 14:09:09 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,62 +22,62 @@ void	ft_throw_error(const char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	check_updown(t_map *param, char str)
+void	check_updown(t_gen *g, char str)
 {
 	if (str == 'f')
 	{
-		if (param->floor[0] > 255 || param->floor[0] < 0 ||
-		param->floor[1] > 255 || param->floor[1] < 0 ||
-		param->floor[2] > 255 || param->floor[2] < 0)
+		if (g->param.floor[0] > 255 || g->param.floor[0] < 0 ||
+		g->param.floor[1] > 255 || g->param.floor[1] < 0 ||
+		g->param.floor[2] > 255 || g->param.floor[2] < 0)
 		ft_throw_error("ERROR: Map is wrong, check floor");
 	}
 	else
 	{
-		if (param->ceiling[0] > 255 || param->ceiling[0] < 0 ||
-		param->ceiling[1] > 255 || param->ceiling[1] < 0 ||
-		param->ceiling[2] > 255 || param->ceiling[2] < 0)
+		if (g->param.ceiling[0] > 255 || g->param.ceiling[0] < 0 ||
+		g->param.ceiling[1] > 255 || g->param.ceiling[1] < 0 ||
+		g->param.ceiling[2] > 255 || g->param.ceiling[2] < 0)
 		ft_throw_error("ERROR: Map is wrong, check ceiling");
 	}
 }
 
-void	ft_check(t_map *param)
+void	ft_check(t_gen *g)
 {
-	param->len = 0;
+	g->param.len = 0;
 	
-	while (param->aux[param->len] != '\0')
-		param->len++;
+	while (g->param.aux[g->param.len] != '\0')
+		g->param.len++;
 		
 }
 
-void    ft_checkrouth(t_map *param)
+void    ft_checkrouth(t_gen *g)
 {
-    if (ft_strnstr(param->aux[1], "./", 2) == NULL)
+    if (ft_strnstr(g->param.aux[1], "./", 2) == NULL)
         ft_throw_error("ERROR: Check routh");
 }
 
-void ft_checkcolumn(t_map *param)
+void ft_checkcolumn(t_gen *g)
 {
 	int		len;
-	param->flag   = 1;
-	int	x = 0;
+	g->param.flag = 1;
+	int	y = 0;
 	
 	len  = 0;
-	while (*param->line != '\0')
+	while (*g->param.line != '\0')
 	{
-		if (*param->line == 'N' || *param->line == 'S' || *param->line == 'E' || *param->line == 'W')
+		if (*g->param.line == 'N' || *g->param.line == 'S' || *g->param.line == 'E' || *g->param.line == 'W')
 		{
-			param->position_x = param->column;
-			param->position_y = x;
-			param->whois = *param->line;
-//			printf("Whois: %c\n", param->whois);
+			g->param.position_x = g->param.column;
+			g->param.position_y = y;
+			g->param.whois = *g->param.line;
+//			printf("Whois: %c\n", g->param.whois);
 		}
-		x++;
+		y++;
 		len++;
-		param->line++;
+		g->param.line++;
 	}
-	if (len > param->row)
-		param->row = len;
-//	printf("Columnas %d\n", param->row);
+	if (len > g->param.row)
+		g->param.row = len;
+//	printf("Columnas %d\n", g->param.row);
 }
 
 int				check_map(char **map, int row, int col, int Maxrow, int Maxcol)
@@ -102,18 +102,18 @@ int				check_map(char **map, int row, int col, int Maxrow, int Maxcol)
 	return (ok);
 }
 
-void		final_checkmap(t_map *param)
+void		final_checkmap(t_gen *g)
 {
 	int len;
 	int y;
 	
 	y = 0;
-	while (param->finalmap[y] != NULL)
+	while (g->param.finalmap[y] != NULL)
 	{
-		len = ft_strlen_gnl(param->finalmap[y]);
-		while (len < param->row)
+		len = ft_strlen_gnl(g->param.finalmap[y]);
+		while (len < g->param.row)
 		{
-			param->finalmap[y] = ft_strjoin_gnl(param->finalmap[y], " ");
+			g->param.finalmap[y] = ft_strjoin_gnl(g->param.finalmap[y], " ");
 			len++;
 		}
 		y++;
