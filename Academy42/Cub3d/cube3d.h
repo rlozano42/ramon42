@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/08 13:29:48 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/10 09:31:29 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ typedef struct s_map
 	char		**aux;
 	int 		floor[3];
 	int			ceiling[3];
-	int			position_x;
-	int			position_y;
+	double			position_x;
+	double			position_y;
 	int			len;
 	int			column;
 	int			flag;
@@ -140,6 +140,7 @@ void			new_window(t_gen *g);
 void  			ft_movement(t_gen *g);
 int 			ft_key_press(int keycode, t_gen *g);
 int 			ft_key_release(int keycode, t_gen *g);
+int   			ft_game(t_gen *g);
 int				is_space(char c);
 int				check_map(char **map, int row, int col,int Maxrow,int Maxcol);
 

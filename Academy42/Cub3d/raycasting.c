@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:31:59 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/08 14:13:54 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/10 09:30:02 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ void init_raycasting(t_gen *g)
     
     while(x < g->param.Screenwidth)
     {
-      
-      g->f.mapX = g->param.position_x;
-      g->f.mapY = g->param.position_y;
-      g->f.cameraX = (2 * x / (double)g->param.Screenwidth) - 1;
+      g->f.cameraX = 2 * x / (double)g->param.Screenwidth - 1;
       g->f.rayDirX = g->param.dirX + g->param.planeX * g->f.cameraX;
       g->f.rayDirY = g->param.dirY + g->param.planeY * g->f.cameraX;
+      g->f.mapX = g->param.position_x;
+      g->f.mapY = g->param.position_y;
       g->f.deltaDistX = fabs(1 / g->f.rayDirX);
       g->f.deltaDistY = fabs(1 / g->f.rayDirY);
     
@@ -55,6 +54,7 @@ void init_raycasting(t_gen *g)
         g->f.stepX = 1;
         g->f.sideDistX = (g->f.mapX + 1.0 - g->param.position_x) * g->f.deltaDistX;
       }
+      
       if (g->f.rayDirY < 0)
       {
         g->f.stepY = -1;
@@ -94,8 +94,8 @@ void init_raycasting(t_gen *g)
       else
         g->f.perpWallDist = (g->f.mapY - g->param.position_y + (1 - g->f.stepY) / 2) / g->f.rayDirY;
       g->f.lineHeight = (int)(g->param.Screenheight / g->f.perpWallDist);
+
       g->f.drawStart = (-g->f.lineHeight / 2) + g->param.Screenheight / 2;
-      
       if(g->f.drawStart < 0)
         g->f.drawStart = 0;
       g->f.drawEnd = (g->f.lineHeight / 2) + g->param.Screenheight / 2;
@@ -117,15 +117,7 @@ void init_raycasting(t_gen *g)
       {
         *(g->mlx.addr + j++ * g->param.Screenwidth + x)   =  60000;
       }
-
-//      ft_movement(g);
- 
+       
       x++;
     }
-    mlx_hook(g->mlx.win_ptr, 2, 1, ft_key_press, &g);
-	  mlx_hook(g->mlx.win_ptr, 3, 2, ft_key_release, &g);
-	  mlx_hook(g->mlx.win_ptr, 17, 1, ft_exit_game, &g->mlx);
-    mlx_put_image_to_window(g->mlx.mlx_ptr, g->mlx.win_ptr, g->mlx.img, 0, 0);
-    mlx_loop_hook(g->mlx.mlx_ptr, ft_game, &g);
-    mlx_loop(g->mlx.mlx_ptr);
 }
