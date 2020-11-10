@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 20:08:55 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/10 08:57:03 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/10 13:24:45 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,17 @@ void	ft_handle(t_gen *g)
 		map2 = ft_strdup_gnl(g->param.line);
 		while (x < g->param.row)
 		{
-			if (map2[x] == 'N' || map2[x] == 'S' || map2[x] == 'E' || map2[x] == 'W')
+			if (map2[x] == 'N' || map2[x] == 'S' || map2[x] == 'E' || map2[x] == 'W' || map2[x] == '2')
 			{
-				while (map2[x] != '\0')
-				{
+				while (map2[x] == 'N' || map2[x] == 'S' || map2[x] == 'E' || map2[x] == 'W' )
+				{				
 					if (map2[x] == 'N' || map2[x] == 'S' || map2[x] == 'E' || map2[x] == 'W')
 						map2[x] = '0';
 					x++;
 				}
 			}
+			if (map2[x] == '2')
+				g->f.cspr++;
 			x++;
 		}
 		g->param.map = ft_strjoin_gnl(g->param.map, map2);

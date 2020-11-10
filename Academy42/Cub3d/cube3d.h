@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/10 11:33:41 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/10 13:24:39 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_ray
 	double			wallx;
 	double			txtstep;
 	double			txtpos;
+	int				cspr;
 }				t_ray;
 
 typedef struct s_map
