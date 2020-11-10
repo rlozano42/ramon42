@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 10:31:59 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/10 09:30:02 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/10 12:06:48 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int   ft_game(t_gen *g)
 {
     ft_movement(g);
     init_raycasting(g);
+    ft_draw_sprites(g);
     mlx_put_image_to_window(g->mlx.mlx_ptr, g->mlx.win_ptr, g->mlx.img, 0, 0);
     return(0);
 }
@@ -90,28 +91,45 @@ void init_raycasting(t_gen *g)
 
 
       if (g->f.side == 0)
+      {
+        g->f.txt_hit = (g->f.mapX < g->param.position_x ? 'N' : 'S');
         g->f.perpWallDist = (g->f.mapX - g->param.position_x + (1 - g->f.stepX) / 2) / g->f.rayDirX;
+        g->f.wallx = g->param.position_y + g->f.perpWallDist * g->f.rayDirY;
+        
+      }
       else
+      {
+        g->f.txt_hit  = (g->f.mapY < g->param.position_y ? 'W' : 'E');
         g->f.perpWallDist = (g->f.mapY - g->param.position_y + (1 - g->f.stepY) / 2) / g->f.rayDirY;
+        g->f.wallx = g->param.position_x + g->f.perpWallDist * g->f.rayDirX;
+      }
+      g->spr.zbuffer[x] = g->f.perpWallDist; 
+      ft_put_texture(g);
+      
       g->f.lineHeight = (int)(g->param.Screenheight / g->f.perpWallDist);
-
       g->f.drawStart = (-g->f.lineHeight / 2) + g->param.Screenheight / 2;
       if(g->f.drawStart < 0)
         g->f.drawStart = 0;
       g->f.drawEnd = (g->f.lineHeight / 2) + g->param.Screenheight / 2;
       if(g->f.drawEnd >= g->param.Screenheight)
         g->f.drawEnd = g->param.Screenheight - 1;
-      //choose wall color
-
+      g->f.wallx -= floor(g->f.wallx);
+      g->txt.txt_x = g->f.wallx * (g->txt.txt_sl / 4);
+		  if ((g->f.side == 0 && g->f.rayDirX > 0) || (g->f.side == 1 && g->f.rayDirY < 0))
+			  g->txt.txt_x = (g->txt.txt_sl / 4) - g->txt.txt_x - 1;     
       j = 0;
       //draw the pixels of the stripe as a vertical line
+      
+      g->f.txtstep = 1.0 * g->txt.txt_h / g->f.lineHeight;
+	    g->f.txtpos = (g->f.drawStart - g->param.Screenheight  / 2 + g->f.lineHeight / 2) * g->f.txtstep;
       while (j < g->f.drawStart)
       {
         *(g->mlx.addr + j++ * g->param.Screenwidth + x)  =  255;
       }
       while (j < g->f.drawEnd)
       {
-        *(g->mlx.addr + j++ * g->param.Screenwidth + x)   =  0xFFFF00;
+        *(g->mlx.addr + x + j++ * g->mlx.line_length / 4) = *(g->txt.txt_data + g->txt.txt_x + (int)g->f.txtpos * g->txt.txt_sl / 4);
+        g->f.txtpos += g->f.txtstep;
       }
       while (j < g->param.Screenheight)
       {

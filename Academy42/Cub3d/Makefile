@@ -6,13 +6,13 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/11/07 12:46:17 by rlozano          ###   ########.fr        #
+#    Updated: 2020/11/10 11:34:14 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3d
 
-SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c raycasting.c readmap.c Key-orientation.c window.c raycasting1.c
+SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c raycasting.c readmap.c Key-orientation.c window.c raycasting1.c sprites.c
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 

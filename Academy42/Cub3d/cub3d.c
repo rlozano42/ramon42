@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:37:02 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/10 09:36:19 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/10 12:15:08 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void ft_initstruct(t_gen *g)
 {
+    g->spr.cspr = 0;
     g->f.time = 0;
     g->f.oldTime = 0;
     g->f.color = 0;
@@ -58,6 +59,7 @@ int main(int argc, char **argv)
     g.param.position_x = g.param.position_x + 0.5;
     g.param.position_y = g.param.position_y + 0.5;
     ft_orientation(&g);
+	ft_init_textures(&g);
     init_raycasting(&g);
     mlx_hook(g.mlx.win_ptr, 2, 1, ft_key_press, &g);
 	mlx_hook(g.mlx.win_ptr, 3, 2, ft_key_release, &g);
