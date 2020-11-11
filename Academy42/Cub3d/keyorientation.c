@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Key-orientation.c                                  :+:      :+:    :+:   */
+/*   keyorientation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 12:10:24 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/07 12:11:12 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/11 12:53:16 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int ft_key_press(int keycode, t_gen *g)
+int		ft_key_press(int keycode, t_gen *g)
 {
 	if (keycode == K_W)
 		g->f.up = 1;
@@ -31,7 +31,7 @@ int ft_key_press(int keycode, t_gen *g)
 	return (0);
 }
 
-int ft_key_release(int keycode, t_gen *g)
+int		ft_key_release(int keycode, t_gen *g)
 {
 	if (keycode == K_W)
 		g->f.up = 0;
@@ -50,35 +50,39 @@ int ft_key_release(int keycode, t_gen *g)
 	return (0);
 }
 
+void	ft_westeast(t_gen *g)
+{
+	if (g->param.whois == 'W')
+	{
+		g->param.dirx = 0.0;
+		g->param.diry = -1.0;
+		g->param.planex = -0.66;
+		g->param.planey = 0.0;
+	}
+	if (g->param.whois == 'E')
+	{
+		g->param.dirx = 0.0;
+		g->param.diry = 1.0;
+		g->param.planex = 0.66;
+		g->param.planey = 0.0;
+	}
+}
+
 void	ft_orientation(t_gen *g)
 {
 	if (g->param.whois == 'N')
 	{
-		g->param.dirX = -1.0;
-		g->param.dirY = 0.0;
-		g->param.planeX = 0.0;
-		g->param.planeY = 0.66;
+		g->param.dirx = -1.0;
+		g->param.diry = 0.0;
+		g->param.planex = 0.0;
+		g->param.planey = 0.66;
 	}
 	if (g->param.whois == 'S')
 	{
-		g->param.dirX = 1.0;
-		g->param.dirY = 0.0;
-		g->param.planeX = 0.0;
-		g->param.planeY = -0.66;
+		g->param.dirx = 1.0;
+		g->param.diry = 0.0;
+		g->param.planex = 0.0;
+		g->param.planey = -0.66;
 	}
-	if (g->param.whois == 'W')
-	{
-		g->param.dirX = 0.0;
-		g->param.dirY = -1.0;
-		g->param.planeX = -0.66;
-		g->param.planeY = 0.0;
-	}
-	if (g->param.whois == 'E')
-	{
-		g->param.dirX = 0.0;
-		g->param.dirY = 1.0;
-		g->param.planeX = 0.66; 
-		g->param.planeY =  0.0;
-	}
-	
+	ft_westeast(g);
 }

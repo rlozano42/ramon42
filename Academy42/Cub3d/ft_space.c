@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlozano <rlozano@student.42madrid.com      +#+  +:+       +#+        */
+/*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/07 12:50:36 by rlozano           #+#    #+#             */
-/*   Updated: 2020/07/07 20:15:20 by rlozano          ###   ########.fr       */
+/*   Created: 2020/11/11 12:34:36 by rlozano           #+#    #+#             */
+/*   Updated: 2020/11/11 12:35:01 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-int is_digit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return(0);
-}
-
-int is_space(char c)
+int		is_space(char c)
 {
 	if (c == ' ')
 		return (1);
