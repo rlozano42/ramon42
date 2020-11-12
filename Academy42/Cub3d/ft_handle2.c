@@ -6,11 +6,27 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 09:45:20 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 13:43:04 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 13:21:21 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+char	*save_texture(t_gen *g)
+{
+	char	**num_str;
+	char	*filename;
+
+	num_str = ft_split(g->param.line, ' ');
+	g->param.len = 0;
+	while (num_str[g->param.len] != '\0')
+		g->param.len++;
+	filename = ft_strdup(num_str[1]);
+	if (ft_strnstr(filename, "./", 2) == NULL)
+		ft_throw_error("ERROR: Check routh");
+	free_str(num_str);
+	return (filename);
+}
 
 void	ft_handle4(t_gen *g)
 {
@@ -37,7 +53,7 @@ void	ft_handle3(t_gen *g, char *map2, int x, int i)
 			}
 		}
 		if (map2[x] == '2')
-			g->f.cspr++;
+			g->spr.cspr++;
 		x++;
 	}
 	g->param.map = ft_strjoin_gnl(g->param.map, map2);
@@ -61,30 +77,29 @@ void	ft_handle2(t_gen *g)
 
 void	ft_handle(t_gen *g)
 {
-	char *free1;
-	
-	free1 = NULL;
-	while (is_space(*g->param.line) == 1)
-		g->param.line++;
-	if ((free1 = ft_strchr(g->param.line, 'R')) != NULL)
+	g->param.x = 0;
+	while (is_space(g->param.line[g->param.x]) == 1)
+		g->param.x++;
+	if ((g->param.free1 = ft_strchr(g->param.line, 'R')) != NULL)
 		ft_handleresolution(g);
-	else if ((free1 = ft_strnstr(g->param.line, "NO", 2)) != NULL)
+	else if ((g->param.free1 = ft_strnstr(g->param.line, "NO", 2)) != NULL)
 		ft_handlenorth(g);
-	else if ((free1 = ft_strnstr(g->param.line, "SO", 2)) != NULL)
+	else if ((g->param.free1 = ft_strnstr(g->param.line, "SO", 2)) != NULL)
 		ft_handlesouth(g);
-	else if ((free1 = ft_strnstr(g->param.line, "WE", 2)) != NULL)
+	else if ((g->param.free1 = ft_strnstr(g->param.line, "WE", 2)) != NULL)
 		ft_handlewest(g);
-	else if ((free1 = ft_strnstr(g->param.line, "EA", 2)) != NULL)
+	else if ((g->param.free1 = ft_strnstr(g->param.line, "EA", 2)) != NULL)
 		ft_handleeast(g);
-	else if ((free1 = ft_strnstr(g->param.line, "S ", 2)) != NULL)
+	else if ((g->param.free1 = ft_strnstr(g->param.line, "S ", 2)) != NULL)
 		ft_handlesprite(g);
-	else if ((free1 = ft_strchr(g->param.line, 'F')) != NULL)
+	else if ((g->param.free1 = ft_strchr(g->param.line, 'F')) != NULL)
 		ft_handlefloor(g);
-	else if ((free1 = ft_strchr(g->param.line, 'C')) != NULL)
+	else if ((g->param.free1 = ft_strchr(g->param.line, 'C')) != NULL)
 		ft_handleceiling(g);
-	else if (((free1 = ft_strchr(g->param.line, '1'))
+	else if (((g->param.free1 = ft_strchr(g->param.line, '1'))
 		!= NULL) && (g->param.flag == 0))
 		ft_handle4(g);
-	else if ((free1 = ft_strchr(g->param.line, '1')) != NULL)
+	else if ((g->param.free1 = ft_strchr(g->param.line, '1')) != NULL)
 		ft_handle2(g);
+	free(g->param.line);
 }

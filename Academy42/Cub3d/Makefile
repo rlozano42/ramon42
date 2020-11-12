@@ -6,13 +6,13 @@
 #    By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/07 11:44:46 by rlozano           #+#    #+#              #
-#    Updated: 2020/11/11 12:37:48 by rlozano          ###   ########.fr        #
+#    Updated: 2020/11/12 12:32:20 by rlozano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Cub3d
+NAME = cub3D
 
-SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c raycasting.c readmap.c keyorientation.c window.c raycasting1.c sprites.c ft_handle2.c raycasting_utils.c raycasting2.c sprites2.c check2.c
+SRC =  includes/libft/*.c ft_space.c check.c ft_handle.c raycasting.c readmap.c keyorientation.c window.c bmp.c raycasting1.c sprites.c ft_handle2.c raycasting_utils.c raycasting2.c sprites2.c check2.c
 
 SRCGNL = includes/GNL/get_next_line.c includes/GNL/get_next_line_utils.c
 
@@ -29,15 +29,11 @@ all: $(NAME)
 $(NAME):
 	@make -C $(SRCLIBFT)
 	@make -C $(SRCMLX)
-	${CC} ${SRC}  ${SRCCUB} -fsanitize=address includes/libft/libft.a  ${SRCGNL} includes/minilibx/libmlx.a  -framework OpenGL -framework AppKit 
+	${CC} ${SRC}  ${SRCCUB} includes/libft/libft.a  ${SRCGNL} includes/minilibx/libmlx.a  -framework OpenGL -framework AppKit -o $(NAME)
 	
-bonus:
-	@make -C $(SRCLIBFT)
-	@make -C $(SRCMLX)
-	${CC}  ${SRC}  ${SRCCUB} includes/libft/libft.a ${SRCGNL} includes/minilibx/libmlx.a -framework OpenGL -framework AppKit
 
 debug:
-	${CC}  ${SRC} ${SRCCUB}  includes/libft/libft.a ${SRCGNL} includes/minilibx/libmlx.a -g  -framework OpenGL -framework AppKit
+	${CC}  ${SRC} ${SRCCUB}  includes/libft/libft.a ${SRCGNL} includes/minilibx/libmlx.a -g  -framework OpenGL -framework AppKit -o $(NAME)
 
 fclean:
 	${RM} ${OBJ} ${OBJBONUS}

@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 10:32:13 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 12:55:38 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 14:25:04 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,15 @@ void	sort_sprite(t_gen *g, float tempx, float tempy, double dtemp)
 	double	dist[g->spr.cspr];
 
 	i = 0;
-	while (i < g->spr.cspr)
+	while (++i < g->spr.cspr)
 	{
 		dist[i] = (pow((g->param.position_x - (double)g->spr.sprx[i]), 2) -
 		pow((g->param.position_y - (double)g->spr.spry[i]), 2));
 		g->spr.sortpprx[i] = g->spr.sprx[i];
 		g->spr.sortppry[i] = g->spr.spry[i];
-		i++;
 	}
-	i = 0;
-	while (i < g->spr.cspr - 1)
+	i = -1;
+	while (++i < g->spr.cspr - 1)
 	{
 		if (fabs(dist[i]) < fabs(dist[i + 1]))
 		{
@@ -47,7 +46,6 @@ void	sort_sprite(t_gen *g, float tempx, float tempy, double dtemp)
 			sort_sprite2(g, tempx, tempy, i);
 			i = 0;
 		}
-		i++;
 	}
 }
 
@@ -109,9 +107,8 @@ void	ft_draw_sprites(t_gen *g)
 {
 	int i;
 
-	g->spr.cspr = g->f.cspr;
-	sort_sprite(g, 0, 0, 0);
 	i = 0;
+	sort_sprite(g, 0, 0, 0);
 	while (i < g->spr.cspr)
 	{
 		g->spr.spritex = (g->spr.sortpprx[i] + 0.5) - g->param.position_x;

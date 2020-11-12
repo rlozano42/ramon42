@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 20:08:55 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 14:12:19 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 13:57:39 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,47 @@
 
 void	ft_handlesprite(t_gen *g)
 {
-	g->param.aux = ft_split(g->param.line, ' ');
-	ft_check(g);
-	ft_checkrouth(g);
-	if (g->param.len == 2)
-	{
-		g->param.sprite = g->param.aux[1];
-	}
-	else
+	g->param.sprite = save_texture(g);
+	if (g->param.len != 2)
 		ft_throw_error("ERROR check sprite");
-//	free_str(g->param.aux);
 }
 
 void	ft_handlefloor(t_gen *g)
 {
-	g->param.line++;
-	g->param.floor[0] = atoi(g->param.line);
-	while (*g->param.line != ',')
-		g->param.line++;
-	g->param.line++;
-	g->param.floor[1] = atoi(g->param.line);
-	while (*g->param.line != ',')
-		g->param.line++;
-	g->param.line++;
-	g->param.floor[2] = atoi(g->param.line);
+	int x;
+
+	x = 0;
+	x++;
+	g->param.floor[0] = atoi(g->param.line + x);
+	while (g->param.line[x] != ',')
+		x++;
+	x++;
+	g->param.floor[1] = atoi(g->param.line + x);
+	while (g->param.line[x] != ',')
+		x++;
+	x++;
+	g->param.floor[2] = atoi(g->param.line + x);
 	check_updown(g, 'f');
 }
 
 void	ft_handleceiling(t_gen *g)
 {
-	g->param.line++;
-	g->param.ceiling[0] = atoi(g->param.line);
-	while (*g->param.line != ',')
-		g->param.line++;
-	g->param.line++;
-	g->param.ceiling[1] = atoi(g->param.line);
-	while (*g->param.line != ',')
-		g->param.line++;
-	g->param.line++;
-	g->param.ceiling[2] = atoi(g->param.line);
-	while (*g->param.line == ' ' || ft_isdigit(*g->param.line))
-		g->param.line++;
-	g->param.line++;
+	int x;
+
+	x = 0;
+	x++;
+	g->param.ceiling[0] = atoi(g->param.line + x);
+	while (g->param.line[x] != ',')
+		x++;
+	x++;
+	g->param.ceiling[1] = atoi(g->param.line + x);
+	while (g->param.line[x] != ',')
+		x++;
+	x++;
+	g->param.ceiling[2] = atoi(g->param.line + x);
+	while (g->param.line[x] == ' ' || ft_isdigit(g->param.line[x]))
+		x++;
+	x++;
 	check_updown(g, ' ');
 }
 
@@ -83,7 +82,8 @@ void	ft_readmap(char *mapa, t_gen *g)
 	int		y;
 
 	ft_bzero(g, sizeof(t_gen));
-	g->param.fd = open(mapa, O_RDONLY);
+	if ((g->param.fd = open(mapa, O_RDONLY)) <= 0)
+		ft_throw_error("FD can't be opened");
 	while ((end = get_next_line(g->param.fd, &g->param.line)) >= 0)
 	{
 		ft_handle(g);
@@ -97,7 +97,6 @@ void	ft_readmap(char *mapa, t_gen *g)
 			if (check_map(map2, x, y, g) == 1)
 				ft_throw_error("Map is not closed");
 			free_str(map2);
-			ft_charge_sprites(g, 0, 0, 0);
 			break ;
 		}
 	}

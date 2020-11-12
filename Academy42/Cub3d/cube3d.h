@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 18:46:22 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 13:58:42 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 12:34:39 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define MIN_RESOLUTIONX 400
 # define MIN_RESOLUTIONY 400
 
-# define MOVESPEED	0.08
-# define ROTSPEED	0.05
+# define MOVESPEED	0.06
+# define ROTSPEED	0.04
 
 typedef struct		s_cam
 {
@@ -95,7 +95,6 @@ typedef struct		s_map
 	char			*west;
 	char			*east;
 	char			*sprite;
-	char			**aux;
 	int				floor[3];
 	int				ceiling[3];
 	double			position_x;
@@ -111,6 +110,9 @@ typedef struct		s_map
 	double			diry;
 	double			planex;
 	double			planey;
+	char			*free1;
+	int				x;
+	int				bmp;
 }					t_map;
 
 typedef	struct		s_texture
@@ -209,7 +211,6 @@ void				ft_handleresolution(t_gen *g);
 void				ft_throw_error(const char *str);
 void				check_updown(t_gen *g, char str);
 void				ft_check(t_gen *g);
-void				ft_checkrouth(t_gen *g);
 void				ft_checkcolumn(t_gen *g);
 void				ft_orientation(t_gen *g);
 void				ft_handleresolution(t_gen *g);
@@ -249,5 +250,9 @@ void				ft_check(t_gen *g);
 void				ft_initstruct2(t_gen *g);
 void				ft_westeast(t_gen *g);
 void				free_str(char **str);
+char				*save_texture(t_gen *g);
+int					ft_screenshoot(t_gen *g);
+void				resolutionmax(t_gen *g);
+void				check_arg(int argc, char **argv);
 
 #endif

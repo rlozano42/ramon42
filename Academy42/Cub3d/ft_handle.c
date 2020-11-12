@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 09:52:21 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 14:11:25 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 11:54:33 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 void	ft_handleresolution(t_gen *g)
 {
-	g->param.aux = ft_split(g->param.line, ' ');
-	ft_check(g);
+	char **aux;
+
+	aux = ft_split(g->param.line, ' ');
+	g->param.len = 0;
+	while (aux[g->param.len] != '\0')
+		g->param.len++;
 	if (g->param.len == 3)
 	{
-		g->param.screenwidth = atoi(g->param.aux[1]);
-		g->param.screenheight = atoi(g->param.aux[2]);
+		g->param.screenwidth = atoi(aux[1]);
+		g->param.screenheight = atoi(aux[2]);
 		if (g->param.screenwidth > MAX_RESOLUTIONX ||
 			g->param.screenheight > MAX_RESOLUTIONY)
-		{
-			g->param.screenwidth = MAX_RESOLUTIONX;
-			g->param.screenheight = MAX_RESOLUTIONY;
-		}
+			resolutionmax(g);
 		if (g->param.screenwidth < MIN_RESOLUTIONX ||
 			g->param.screenheight < MIN_RESOLUTIONY)
 		{
@@ -34,70 +35,34 @@ void	ft_handleresolution(t_gen *g)
 		}
 	}
 	else
-	{
 		ft_throw_error("ERROR: check resolution");
-	}
-//	free_str(g->param.aux);
+	free_str(aux);
 }
 
 void	ft_handlenorth(t_gen *g)
 {
-	g->param.aux = ft_split(g->param.line, ' ');
-	ft_check(g);
-	ft_checkrouth(g);
-	if (g->param.len == 2)
-	{
-		g->param.north = g->param.aux[1];
-	}
-	else
+	g->param.north = save_texture(g);
+	if (g->param.len != 2)
 		ft_throw_error("ERROR: check north");
-//	free_str(g->param.aux);
 }
 
 void	ft_handlesouth(t_gen *g)
 {
-	g->param.aux = ft_split(g->param.line, ' ');
-	ft_check(g);
-	ft_checkrouth(g);
-	if (g->param.len == 2)
-	{
-		g->param.south = g->param.aux[1];
-	}
-	else
-	{
+	g->param.south = save_texture(g);
+	if (g->param.len != 2)
 		ft_throw_error("ERROR: check south");
-	}
-//	free_str(g->param.aux);
 }
 
 void	ft_handlewest(t_gen *g)
 {
-	g->param.aux = ft_split(g->param.line, ' ');
-	ft_check(g);
-	ft_checkrouth(g);
-	if (g->param.len == 2)
-	{
-		g->param.west = g->param.aux[1];
-	}
-	else
-	{
+	g->param.west = save_texture(g);
+	if (g->param.len != 2)
 		ft_throw_error("ERROR: check west");
-	}
-//	free_str(g->param.aux);
 }
 
 void	ft_handleeast(t_gen *g)
 {
-	g->param.aux = ft_split(g->param.line, ' ');
-	ft_check(g);
-	ft_checkrouth(g);
-	if (g->param.len == 2)
-	{
-		g->param.east = g->param.aux[1];
-	}
-	else
-	{
+	g->param.east = save_texture(g);
+	if (g->param.len != 2)
 		ft_throw_error("ERROR: check east");
-	}
-//	free_str(g->param.aux);
 }

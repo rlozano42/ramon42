@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 10:32:11 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 13:05:58 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 13:58:50 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int		ft_game(t_gen *g)
 	ft_movement(g);
 	init_raycasting(g);
 	ft_draw_sprites(g);
+	if (g->param.bmp == 1)
+		ft_screenshoot(g);
 	mlx_put_image_to_window(g->mlx.mlx_ptr, g->mlx.win_ptr, g->mlx.img, 0, 0);
 	return (0);
 }

@@ -6,38 +6,34 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 12:20:20 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 13:45:00 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 13:50:51 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	ft_checkrouth(t_gen *g)
-{
-	if (ft_strnstr(g->param.aux[1], "./", 2) == NULL)
-		ft_throw_error("ERROR: Check routh");
-}
-
 void	ft_checkcolumn(t_gen *g)
 {
 	int		len;
 	int		y;
+	int		count;
 
+	count = 0;
 	g->param.flag = 1;
 	len = 0;
 	y = 0;
-	while (*g->param.line != '\0')
+	while (g->param.line[count] != '\0')
 	{
-		if (*g->param.line == 'N' || *g->param.line == 'S' ||
-		*g->param.line == 'E' || *g->param.line == 'W')
+		if (g->param.line[count] == 'N' || g->param.line[count] == 'S' ||
+		g->param.line[count] == 'E' || g->param.line[count] == 'W')
 		{
 			g->param.position_x = g->param.column;
 			g->param.position_y = y;
-			g->param.whois = *g->param.line;
+			g->param.whois = g->param.line[count];
 		}
 		y++;
 		len++;
-		g->param.line++;
+		count++;
 	}
 	if (len > g->param.row)
 		g->param.row = len;
@@ -69,16 +65,24 @@ void	final_checkmap(t_gen *g)
 {
 	int len;
 	int y;
+	int	x;
 
+	x = 0;
 	y = 0;
-	while (g->param.finalmap[y] != NULL)
+	while (g->param.finalmap[y][x] != '\0')
 	{
-		len = ft_strlen_gnl(g->param.finalmap[y]);
-		while (len < g->param.row)
+		x = 0;
+		len = ft_strlen(g->param.finalmap[y]);
+		while (g->param.finalmap[y][x] != '\n')
 		{
-			g->param.finalmap[y] = ft_strjoin_gnl(g->param.finalmap[y], " ");
-			len++;
+			if(x < g->param.row)
+			{
+				g->param.finalmap[y] = ft_strjoin_gnl(g->param.finalmap[y], " ");
+				len++;
+			}
+			x++;
 		}
 		y++;
 	}
 }
+

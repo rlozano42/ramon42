@@ -6,13 +6,13 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 12:08:07 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 13:58:26 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 11:06:22 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void		free_str(char **str)
+void	free_str(char **str)
 {
 	int i;
 
@@ -52,11 +52,4 @@ void	check_updown(t_gen *g, char str)
 		g->param.ceiling[2] > 255 || g->param.ceiling[2] < 0)
 			ft_throw_error("ERROR: Map is wrong, check ceiling");
 	}
-}
-
-void	ft_check(t_gen *g)
-{
-	g->param.len = 0;
-	while (g->param.aux[g->param.len] != '\0')
-		g->param.len++;
 }

@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:37:02 by rlozano           #+#    #+#             */
-/*   Updated: 2020/11/11 13:06:40 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/11/12 13:57:57 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_initstruct2(t_gen *g)
 
 void	ft_initstruct(t_gen *g)
 {
-	g->spr.cspr = 0;
 	g->f.time = 0;
 	g->f.oldtime = 0;
 	g->f.color = 0;
@@ -56,7 +55,11 @@ int		main(int argc, char **argv)
 {
 	t_gen	g;
 
+	g.param.bmp = 0;
+	g.spr.cspr = 0;
+	check_arg(argc, argv);
 	ft_readmap(argv[1], &g);
+	ft_charge_sprites(&g, 0, 0, 0);
 	new_window(&g);
 	ft_initstruct(&g);
 	g.param.position_x = g.param.position_x + 0.5;
@@ -64,6 +67,9 @@ int		main(int argc, char **argv)
 	ft_orientation(&g);
 	ft_init_textures(&g);
 	init_raycasting(&g);
+	if (argc == 3 && (g.param.free1 =
+		ft_strnstr(argv[2], "--save\0", 6)) != NULL)
+		g.param.bmp = 1;
 	mlx_hook(g.mlx.win_ptr, 2, 1, ft_key_press, &g);
 	mlx_hook(g.mlx.win_ptr, 3, 2, ft_key_release, &g);
 	mlx_hook(g.mlx.win_ptr, 17, 1, ft_exit_game, &g.mlx);
