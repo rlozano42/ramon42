@@ -5,26 +5,22 @@ _ft_strcmp:
 		mov rax, 0
 		mov rcx, 0
 
-
 while:
-		cmp BYTE[rdi], 0
-		je case
-		cmp BYTE[rdi + rcx], 0
-		je equal
-		mov dl, BYTE[rdi + rcx]
-		mov al, BYTE[rsi + rcx]
-		cmp dl, al
+		mov al, BYTE[rdi]
+		mov dl, BYTE[rsi]
+		cmp al, 0
+		je calc
+		cmp al, dl
 		jne calc
-		inc rcx
+		inc rdi
+		inc rsi
 		jmp while
-calc:
-		sub dl, al
+
 return:
-		movzx rax, dl
 		ret
-equal:
-		mov dl, 0
-		jmp return
-case:
-		mov dl, -1
+
+calc:
+		movzx rax, al
+		movzx rcx, dl
+		sub rax, rcx
 		jmp return

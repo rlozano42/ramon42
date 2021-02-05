@@ -22,4 +22,4 @@ fclean: clean
 re: fclean all
 
 test: re
-	@gcc tests/testshard2.c $(NAME) -o test
+	@gcc -Wall -Wextra -Werror src/main.c $(NAME) -o test
