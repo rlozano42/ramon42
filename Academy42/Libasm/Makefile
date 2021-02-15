@@ -23,3 +23,5 @@ re: fclean all
 
 test: re
 	@gcc -Wall -Wextra -Werror src/main.c $(NAME) -o test
+
+.PHONY:  all clean fclean re test
