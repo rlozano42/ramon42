@@ -6,7 +6,7 @@
 /*   By: rlozano <rlozano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:54:32 by rlozano           #+#    #+#             */
-/*   Updated: 2020/02/08 12:35:43 by rlozano          ###   ########.fr       */
+/*   Updated: 2020/02/07 15:48:08 by rlozano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,4 @@ int			ft_printf(const char *str, ...)
 	}
 	va_end(param.ap);
 	return (param.len);
-}
-
-int main()
-{
-	ft_printf("Hola, %4.*s hola\n", -7, "ADIOD");
-//	printf("Hola, %4.-5s hola", -7, "ADIOD");
-	printf("Hola, %4.*s hola", -7, "ADIOD");
 }
