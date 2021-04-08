@@ -42,3 +42,26 @@ docker run -it -p 80:80 -p 443:443 --rm --name nginx nginx
 
 # para escribir en la terminal de un contenedor  
 docker exec -it nginx ash 
+
+# para inicializar cualquier demonio sin que se quede pillado ponerle la d delante de it
+docker run -dit
+
+
+# Diferencias entre ENTRYPOINT Y CMD
+CMD solo se ejecuta cuando se arranca el contenedor 
+ENTRYPOINT  se ejecuta cuando hay algun fallo o problema al levantar el contenedor
+
+# matar todos los procesos 
+kill -9 [PID]
+
+# Borrar el deployment
+kubectl delete -f "phpmyadmin.yaml" deployment
+
+# Entrar en el deploy y en la terminal
+kubectl exec -it deploy/mysql -- /bin/ash
+
+# top = ps pero actualizado
+
+# mysql -u root -p --> para entrar en mysql
+# select host, user, password from mysql.user; --> Ver usuarios y contraseñas
+# SHOW DATABASES;

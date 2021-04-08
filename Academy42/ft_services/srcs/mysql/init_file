@@ -1,3 +1,4 @@
 CREATE DATABASE wordpress;
-GRANT ALL ON wordpress.* TO 'rlozano'@'%' IDENTIFIED BY 'rlozano';
+CREATE USER 'rlozano'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'rlozano'@'%';
 FLUSH PRIVILEGES;

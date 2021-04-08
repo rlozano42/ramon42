@@ -6,6 +6,7 @@ RUN apk update && \
 
 RUN adduser -D -g 'www' www && \
     mkdir -p /run/nginx
+
 RUN mkdir /www && \
 	chown -R www:www /var/lib/nginx && \
 	chown -R www:www /www

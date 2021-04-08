@@ -16,6 +16,7 @@ declare(strict_types=1);
  * cookie. Needs to be 32 chars long.
  */
 $cfg['blowfish_secret'] = 'qwertyuiopfg23456789456789dzxcvlghjk0456789'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+$cfg['PmaAbsoluteUri'] = '/phpmyadmin';
 
 /**
  * Servers configuration
@@ -26,10 +27,15 @@ $i = 0;
  * First server
  */
 $i++;
+
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = 'mysql';
+$cfg['Servers'][$i]['host']         = 'mysql';
+$cfg['Servers'][$i]['port']         = 3306;
+$cfg['Servers'][$i]['socket']       = '';
+$cfg['Servers'][$i]['connect_type'] = 'tcp';
+$cfg['Servers'][$i]['extension']    = 'mysqli';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 
@@ -40,8 +46,8 @@ $cfg['Servers'][$i]['AllowNoPassword'] = true;
 /* User used to manipulate with storage */
 // $cfg['Servers'][$i]['controlhost'] = '';
 // $cfg['Servers'][$i]['controlport'] = '';
-$cfg['Servers'][$i]['controluser'] = 'rlozano';
-$cfg['Servers'][$i]['controlpass'] = 'rlozano';
+//$cfg['Servers'][$i]['controluser'] = 'rlozano';
+//$cfg['Servers'][$i]['controlpass'] = 'rlozano';
 
 /* Storage database and tables */
 // $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
@@ -74,6 +80,7 @@ $cfg['Servers'][$i]['controlpass'] = 'rlozano';
  */
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+$cfg['TempDir'] = '/etc/phpmyadmin/tmp';
 
 /**
  * Whether to display icons or text or both icons and text in table row

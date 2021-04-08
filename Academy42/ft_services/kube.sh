@@ -1,4 +1,4 @@
 #!/bin/bash
-cp -rf ~/.minikube/machines /sgoinfre/students/${USER}
-rm -rf ~/.minikube/machines
-ln -s /sgoinfre/students/${USER}/machines ~/.minikube/machines
+cp -rf ~/.minikube /sgoinfre/students/${USER}
+rm -rf ~/.minikube
+ln -s /sgoinfre/students/${USER} ~/.minikube
