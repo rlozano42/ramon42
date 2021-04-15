@@ -65,3 +65,7 @@ kubectl exec -it deploy/mysql -- /bin/ash
 # mysql -u root -p --> para entrar en mysql
 # select host, user, password from mysql.user; --> Ver usuarios y contraseñas
 # SHOW DATABASES;
+
+Influxb
+# influx -precision rfc3339
+# SHOW DATABASES

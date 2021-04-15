@@ -1,13 +1,17 @@
 FROM alpine:3.12
 
-COPY	./init.sh ./
 
-RUN		apk add influxdb --repository https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-amd64.tar.gz
+FROM alpine:3.12
 
-RUN		chmod +x ./init.sh
+# Instalar 
+RUN apk --no-cache update && apk --no-cache upgrade && \
+    apk add influxdb
 
-EXPOSE	8086
+# Copiar configuracion 
+RUN mkdir -p /etc/influxdb
+COPY influxdb.conf /etc/influxdb/influxdb.conf
 
-CMD		./init.sh
+#expose ports
+EXPOSE 8086
 
-ENTRYPOINT	/usr/sbin/influxd -config etc/influxdb.conf
+ENTRYPOINT influxd

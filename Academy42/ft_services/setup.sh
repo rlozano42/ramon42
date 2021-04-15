@@ -29,9 +29,11 @@ docker build -t phpmyadmin srcs/phpmyadmin >/dev/null 2>&1
 printf "🐳 🛠 PhpMyAdmin Done!\n"
 docker build -t ftps srcs/ftps >/dev/null 2>&1
 printf "🐳 🛠 Ftps Done!\n"
-#docker build -t my_grafana srcs/grafana
-#printf "🐳 🛠 Grafana Done!\n"
-docker build -t my_influxdb srcs/influxdb
+docker build -t telegraf ./srcs/telegraf  >/dev/null 2>&1
+printf "🐳 🛠 Telegraf Done!\n"
+docker build -t grafana srcs/grafana >/dev/null 2>&1
+printf "🐳 🛠 Grafana Done!\n"
+docker build -t influxdb srcs/influxdb >/dev/null 2>&1
 printf "🐳 🛠 InfluxDB Done!\n"
 printf "✅ 🐳 Images Builded!\n"
 
@@ -47,11 +49,11 @@ kubectl apply -f srcs/phpmyadmin.yaml >/dev/null 2>&1
 printf "🛠 PhpMyAdmin Done!\n"
 kubectl apply -f ./srcs/ftps.yaml >/dev/null 2>&1
 printf "🛠 Ftps Done!\n"
-kubectl apply -f srcs/grafana.yaml
+kubectl apply -f srcs/grafana.yaml >/dev/null 2>&1
 printf "🛠 Grafana Done!\n"
-kubectl apply -f srcs/influxdb.yaml
+kubectl apply -f srcs/influxdb.yaml >/dev/null 2>&1
 printf "🛠 InfluxDB Done!\n"
-kubectl apply -f srcs/telegraf.yaml
+kubectl apply -f srcs/telegraf.yaml >/dev/null 2>&1
 printf "🛠 Telegraf Done!\n"
 printf "✅ Services Deployed!\n"
 
