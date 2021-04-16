@@ -1,6 +1,6 @@
 FROM alpine:3.12
 
-COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY vsftpd.conf /etc/vsftpd.conf
 
 RUN     apk update && \
 		apk add vsftpd openssl
@@ -15,6 +15,6 @@ RUN     chmod 700 /etc/ssl/private && \
 	    -keyout /etc/ssl/private/vsftpd.key \
 	    -out /etc/ssl/certs/vsftpd.crt
 
-EXPOSE  21 30021
+EXPOSE  21 30020 30021
 
-ENTRYPOINT	/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+ENTRYPOINT	/usr/sbin/vsftpd /etc/vsftpd.conf

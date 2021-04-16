@@ -17,6 +17,10 @@ spec:
     targetPort: 21
     protocol: TCP
   - name: pasv
+    port: 30020
+    targetPort: 30020
+    protocol: TCP
+  - name: pasv-1
     port: 30021
     targetPort: 30021
     protocol: TCP
@@ -41,12 +45,4 @@ spec:
         image: ftps
         imagePullPolicy: Never
         ports:
-        - containerPort: 3000
-        volumeMounts:
-        - name: ftps-persistent-storage
-          mountPath: /var/lib/mysql
-      restartPolicy: Always
-      volumes:
-        - name: ftps-persistent-storage
-          persistentVolumeClaim:
-            claimName: ftps-pvc
+        - containerPort: 30021
