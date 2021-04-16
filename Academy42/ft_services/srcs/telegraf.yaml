@@ -6,6 +6,8 @@ type: Opaque
 stringData:
   INFLUXDB_DB: ft_services
   INFLUXDB_URL: http://influxdb:8086
+  GF_SECURITY_ADMIN_USER: admin
+  GF_SECURITY_ADMIN_PASSWORD: admin
 
 ---
 apiVersion: v1

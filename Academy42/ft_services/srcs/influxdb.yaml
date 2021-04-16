@@ -2,8 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: influxdb
+  namespace: default
   labels:
-    app: influxdb
+    app: influxdb-app
 spec:
   ports:
     - port: 8086
@@ -11,37 +12,26 @@ spec:
       protocol: TCP
       name: influxdb
   selector:
-    app: influxdb
+    app: influxdb-app
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: influxdb-pvc
-  labels:
-    app: influxdb
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
----
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: influxdb
+  namespace: default
   labels:
-    app: influxdb
+    app: influxdb-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: influxdb
+      app: influxdb-app
   template:
     metadata:
       labels:
-        app: influxdb
+        app: influxdb-app
     spec:
       containers:
       - name: influx
@@ -56,5 +46,5 @@ spec:
       volumes:
       - name: influxdb-persistent-storage
         persistentVolumeClaim:
-          claimName: influxdb-pvc
+          claimName: influxdb-pv-claim
       restartPolicy: Always

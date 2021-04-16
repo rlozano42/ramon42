@@ -20,16 +20,33 @@ spec:
     port: 30021
     targetPort: 30021
     protocol: TCP
+
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
+
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: ftps-pvc
-  labels:
-    app: ftps
+  name: ftps
 spec:
-  resources:
-    requests:
-      storage: 500Mi
-  accessModes:
-    - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: ftps
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      containers:
+      - name: ftps
+        image: ftps
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: ftps-persistent-storage
+          mountPath: /var/lib/mysql
+      restartPolicy: Always
+      volumes:
+        - name: ftps-persistent-storage
+          persistentVolumeClaim:
+            claimName: ftps-pvc

@@ -39,6 +39,7 @@ printf "✅ 🐳 Images Builded!\n"
 
 #Ejecuto los yamls
 printf "♻️ Deploying Services...\n"
+kubectl apply -f srcs/volumes.yaml >/dev/null 2>&1
 kubectl apply -f srcs/nginx.yaml >/dev/null 2>&1
 printf "🛠 Nginx Done!\n"
 kubectl apply -f srcs/wordpress.yaml >/dev/null 2>&1
